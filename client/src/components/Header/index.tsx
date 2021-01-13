@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../reducers';
 import { StyledHeader } from './styles';
 
 // type HeaderProps = {
@@ -9,7 +8,8 @@ import { StyledHeader } from './styles';
 // }
 
 export const Header = () => {
-    const auth: any = useSelector((state: RootState) => state.auth);
+    // const auth: any = useSelector((state: RootState) => state.auth);
+    const auth = { _id : null }
 
     const renderContent = () => {
         switch (auth?._id) {
@@ -30,7 +30,6 @@ export const Header = () => {
                 ];
         }
     };
-
 
     return (
         <StyledHeader>

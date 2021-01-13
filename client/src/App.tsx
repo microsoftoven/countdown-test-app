@@ -1,18 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
-import { RootState } from './reducers';
-
-// import * as actions from '../actions';
 import { ThemeProvider } from 'styled-components';
 
-// Components
-// import { Countdown } from './components/countdown';
-import { Header } from './components/Header';
-import { Deadlines } from './components/Deadlines';
-import { Landing } from './components/Landing';
-import { NoRoutes } from './components/NoRoutes';
+// import { Header } from './components/Header';
 
 interface State {
     theme: any;
@@ -20,9 +12,9 @@ interface State {
 
 interface Props {
     fetchUser: Function,
-    auth: {
-        id: string
-    }
+    fetchTheme: Function,
+    user: {},
+    theme: {}
 }
 
 class App extends React.Component<Props, State> {
@@ -31,52 +23,34 @@ class App extends React.Component<Props, State> {
     };
 
     componentDidMount() {
+        // this.props.fetchTheme();
         this.props.fetchUser();
-        this.fetchTheme();
     }
 
-    fetchTheme = () => {
-        fetch(
-            'https://api.koala.io/marketing/v1/device-configurations/alias/web-config',
-            {
-                method: 'GET',
-                headers: {
-                    'X-Organization-Id': '1',
-                },
-            }
-        )
-            .then((res) => res.json())
-            .then(
-                (result) => this.setState({ theme: result }),
-                (error) => console.log(error)
-            );
-    };
-
     render() {
-        console.log(this.props);
-        const data = this.state.theme?.data?.data;
+        console.log(this.props.theme);
 
         return (
-            this.state.theme && (
-                <ThemeProvider theme={data}>
-                    {/* <Countdown /> */}
+            this.props.theme && (
+                <ThemeProvider theme={this.props.theme}>
                     <BrowserRouter>
                         <div>
-                            <Header />
+                            {/* <Header /> */}
 
                             <div className='container'>
                                 <Switch>
-                                    <Route exact path='/' component={Landing} />
+                                    {/* <Route exact path='/' component={Landing} />
 
                                     {this.props.auth._id &&
                                         <Route path='/deadlines' component={Deadlines} />
                                     }
 
-                                    <Route component={NoRoutes} />
+                                    <Route component={NoRoutes} /> */}
                                 </Switch>
                             </div>
                         </div>
                     </BrowserRouter>
+                    {/* <Countdown /> */}
                 </ThemeProvider>
             )
         );
@@ -84,5 +58,8 @@ class App extends React.Component<Props, State> {
 }
 
 export default connect((state: RootState) => {
-    return { auth: state.auth };
+    return { 
+        user: state.user,
+        theme: state.theme
+    };
 }, actions)(App);

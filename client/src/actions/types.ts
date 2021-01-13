@@ -1,1 +1,9 @@
-export const FETCH_USER = 'fetch_user';
+export const REQUEST_USER = 'REQUEST_USER';
+export const FETCH_USER = 'FETCH_USER';
+export const REQUEST_THEME = 'REQUEST_THEME';
+export const FETCH_THEME = 'FETCH_THEME';
+export const FETCH_DEADLINES = 'FETCH_DEADLINES';
+export const FETCH_DEADLINE = 'FETCH_DEADLINE';
+export const ADD_DEADLINE = 'ADD_DEADLINE';
+export const UPDATE_DEADLINE = 'UPDATE_DEADLINE';
+export const DELETE_DEADLINE = 'DELETE_DEADLINE';
