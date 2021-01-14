@@ -10,6 +10,7 @@ enum NotificationSize {
 }
 
 interface INotification {
+    active: boolean;
     message: string;
     type: NotificationType;
     size: NotificationSize;
@@ -17,6 +18,7 @@ interface INotification {
 }
 
 type NotificationState = {
+    active: false;
     message: string;
     type: NotificationType;
     size: NotificationSize;

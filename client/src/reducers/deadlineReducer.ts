@@ -21,6 +21,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 loading: false,
                 activeDeadline: {},
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Error,
                     size: NotificationSize.Large,
@@ -37,6 +38,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 loading: false,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Success,
                     size: NotificationSize.Small,
@@ -48,6 +50,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 loading: false,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Error,
                     size: NotificationSize.Small,
@@ -64,6 +67,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 loading: false,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Success,
                     size: NotificationSize.Small,
@@ -75,6 +79,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 loading: false,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Error,
                     size: NotificationSize.Small,
@@ -91,6 +96,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 loading: false,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Success,
                     size: NotificationSize.Small,
@@ -102,6 +108,7 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 loading: false,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Error,
                     size: NotificationSize.Small,

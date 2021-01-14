@@ -23,6 +23,7 @@ export const themeReducer = (state = initialState, action: ActionTypes) => {
                 loading: false,
                 error: true,
                 notification: {
+                    active: true,
                     message: action.message,
                     type: NotificationType.Error,
                     size: NotificationSize.Small,

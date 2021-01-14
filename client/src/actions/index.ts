@@ -45,3 +45,9 @@ export function deleteDeadline(data: IDeadline) {
         payload: data,
     };
 }
+
+export function dismissNotification() {
+    return {
+        type: actionTypes.DISMISS_NOTIFICATION,
+    };
+}
