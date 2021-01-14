@@ -8,8 +8,7 @@ import { StyledHeader } from './styles';
 // }
 
 export const Header = () => {
-    // const auth: any = useSelector((state: RootState) => state.auth);
-    const auth = { _id : null }
+    const auth: any = useSelector((state: RootState) => state.user);
 
     const renderContent = () => {
         switch (auth?._id) {
@@ -34,12 +33,12 @@ export const Header = () => {
     return (
         <StyledHeader>
             <nav className=''>
-                <Link
+                {/* <Link
                     to='/'
                     className='brand-logo'
                 >
                     <i className='material-icons'>email</i> countdown.app
-                </Link>
+                </Link> */}
 
                 <ul>{renderContent()}</ul>
             </nav>

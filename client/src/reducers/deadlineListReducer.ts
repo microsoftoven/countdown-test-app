@@ -1,21 +1,24 @@
 import * as actionTypes from '../actions/types';
 
-const initialState: UserState = {};
+const initialState: DeadlineListState = [];
 
-export const userReducer = (state = initialState, action: ActionTypes) => {
+export const deadlineListReducer = (
+    state = initialState,
+    action: ActionTypes
+) => {
     switch (action.type) {
-        case actionTypes.FETCH_USER:
+        case actionTypes.FETCH_DEADLINE_LIST:
             return {
                 ...state,
                 loading: true,
             };
-        case actionTypes.FETCH_USER_SUCCESS:
+        case actionTypes.FETCH_DEADLINE_LIST_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                user: action.payload,
+                deadlines: action.payload,
             };
-        case actionTypes.FETCH_USER_ERROR:
+        case actionTypes.FETCH_DEADLINE_LIST_ERROR:
             return {
                 ...state,
                 loading: false,

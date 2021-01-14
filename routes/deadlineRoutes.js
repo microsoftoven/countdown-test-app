@@ -31,7 +31,10 @@ module.exports = (app) => {
         try {
             const deadline = await Deadline.create(req.body);
 
-            res.status(201).json({ deadline });
+            res.status(201).json({
+                data: deadline,
+                message: 'Successfully added deadline.',
+            });
         } catch (error) {
             return error;
         }
@@ -46,13 +49,16 @@ module.exports = (app) => {
                 { new: true }
             );
 
-            res.status(201).json({ deadline });
+            res.status(201).json({
+                data: deadline,
+                message: 'Successfully updated deadline.',
+            });
         } catch (error) {
             return error;
         }
     });
 
-    // delete a single deadline by ID
+    // delete a single data: deadline, message: 'Deadline updated by ID
     app.delete('/api/deadlines/:deadlineID', requireLogin, async (req, res) => {
         try {
             const deadline = await Deadline.findByIdAndRemove(
@@ -60,7 +66,7 @@ module.exports = (app) => {
             );
 
             res.status(204).json({
-                messsage: `Successfully deleted deadline by ID: ${req.params.deadlineID}.`,
+                messsage: `Successfully deleted deadline.`,
             });
         } catch (error) {
             return error;
