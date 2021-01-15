@@ -1,7 +1,8 @@
 interface ITheme {}
 
 type ThemeState = {
-    data: {}
+    themeLoading: boolean;
+    data: {
+        data: {};
+    };
 };
-
-

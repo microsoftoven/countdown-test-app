@@ -1,7 +1,10 @@
 import * as actionTypes from '../actions/types';
 
 const initialState: ThemeState = {
-    data: {},
+    themeLoading: true,
+    data: {
+        data: {},
+    },
 };
 
 export const themeReducer = (state = initialState, action: ActionTypes) => {
@@ -13,6 +16,7 @@ export const themeReducer = (state = initialState, action: ActionTypes) => {
             return {
                 ...state,
                 ...action.payload,
+                themeLoading: false,
             };
         default:
             return state;

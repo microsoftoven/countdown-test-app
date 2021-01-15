@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import { ThemeProvider } from 'styled-components';
+import 'normalize.css';
 
-// import { Header } from './components/Header';
+import { AppWrapper } from './components/_layout/AppWrapper';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Header } from './components/Header';
 import { Landing } from './components/Landing';
@@ -23,31 +24,41 @@ interface Props {
 }
 
 class App extends React.Component<Props, State> {
-    state: State = {
-        theme: null,
-    };
+    // state: State = {
+    //     theme: null
+    // };
 
     componentDidMount() {
         this.props.fetchTheme();
         this.props.fetchUser();
     }
 
-    render() {
-        return (
-            this.props.theme && (
-                <ThemeProvider theme={this.props.theme.data}>
-                    <BrowserRouter>
-                        <Header user={this.props.user} />
+    // componentDidUpdate(prevProps, prevState) {
+        
+    // }
 
-                        <Switch>
-                            <Route exact path='/' component={Landing} />
-                            <PrivateRoute exact path='/deadlines' component={DeadlineList} user={this.props.user} redirectTo="/" />
-                            <PrivateRoute path='/deadlines/:title' component={Deadline} user={this.props.user} redirectTo="/" />
-                        </Switch>
-                    </BrowserRouter>
+    render() {
+        if(!this.props.theme.themeLoading) {
+            return (
+                <ThemeProvider theme={this.props.theme.data.data}>
+                    <AppWrapper>
+                        <BrowserRouter>
+                            <Header user={this.props.user} />
+    
+                            <Switch>
+                                <Route exact path='/' component={Landing} />
+                                <PrivateRoute exact path='/deadlines' component={DeadlineList} user={this.props.user} redirectTo="/" />
+                                <PrivateRoute path='/deadlines/:title' component={Deadline} user={this.props.user} redirectTo="/" />
+                            </Switch>
+                        </BrowserRouter>
+                    </AppWrapper>
                 </ThemeProvider>
             )
-        );
+        } else {
+            return (
+                <div>Loading...</div>
+            )
+        }
     }
 }
 
