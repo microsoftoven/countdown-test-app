@@ -1,14 +1,3 @@
-enum NotificationType {
-    Success,
-    Error,
-    Info,
-}
-
-enum NotificationSize {
-    Large,
-    Small,
-}
-
 interface INotification {
     active: boolean;
     message: string;

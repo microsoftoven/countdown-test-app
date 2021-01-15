@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/types';
+import { NotificationType, NotificationSize } from '../constants/notifications';
 
 const initialState: NotificationState = {
     active: false,
@@ -8,12 +9,17 @@ const initialState: NotificationState = {
     autoDismiss: true,
 };
 
-export const userReducer = (state = initialState, action: ActionTypes) => {
+export const notificationReducer = (
+    state = initialState,
+    action: ActionTypes
+) => {
     switch (action.type) {
         case actionTypes.DISMISS_NOTIFICATION:
+            return initialState;
+        case actionTypes.UPDATE_NOTIFICATION:
             return {
                 ...state,
-                notification: { ...initialState },
+                ...action.payload,
             };
         default:
             return state;

@@ -1,21 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledHeader } from './styles';
 
-// type HeaderProps = {
-//     auth?: Object | undefined
-// }
+interface Props {
+    user: IUser
+}
 
-export const Header = () => {
-    const auth: any = useSelector((state: RootState) => state.user);
-
+export const Header: React.FC<Props> = ({ user }) => {
     const renderContent = () => {
-        switch (auth?._id) {
+        switch (user._id) {
             case null:
                 return (
                     <li>
-                        <a href='/auth/google'>Login With Google</a>
+                        <a href='/auth/google'>Login / Sign Up</a>
                     </li>
                 );
             default:
@@ -33,12 +30,9 @@ export const Header = () => {
     return (
         <StyledHeader>
             <nav className=''>
-                {/* <Link
-                    to='/'
-                    className='brand-logo'
-                >
-                    <i className='material-icons'>email</i> countdown.app
-                </Link> */}
+                <Link to='/' className='brand-logo'>
+                    countdown.app
+                </Link>
 
                 <ul>{renderContent()}</ul>
             </nav>

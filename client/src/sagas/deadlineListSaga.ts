@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import * as actionTypes from '../actions/types';
 
 export async function fetchDeadlineListAPI() {
-    fetch('/api/deadlines')
+    const result = await fetch('/api/deadlines')
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -10,6 +10,8 @@ export async function fetchDeadlineListAPI() {
         .catch((error) => {
             throw error;
         });
+
+    return result;
 }
 
 export function* fetchDeadlineList() {

@@ -7,7 +7,9 @@ module.exports = (app) => {
     // get multiple deadlines
     app.get('/api/deadlines', requireLogin, async (req, res) => {
         try {
-            const deadlines = await Deadline.find({ userID: req.user.id });
+            const deadlines = await Deadline.find({
+                userID: req.user.id,
+            }).sort({ timestamp: 'descending' });
 
             res.status(200).json({ deadlines });
         } catch (error) {
@@ -31,10 +33,7 @@ module.exports = (app) => {
         try {
             const deadline = await Deadline.create(req.body);
 
-            res.status(201).json({
-                data: deadline,
-                message: 'Successfully added deadline.',
-            });
+            res.status(201).json({ deadline });
         } catch (error) {
             return error;
         }
@@ -49,10 +48,7 @@ module.exports = (app) => {
                 { new: true }
             );
 
-            res.status(201).json({
-                data: deadline,
-                message: 'Successfully updated deadline.',
-            });
+            res.status(201).json({ dealine });
         } catch (error) {
             return error;
         }
@@ -65,9 +61,7 @@ module.exports = (app) => {
                 req.params.deadlineID
             );
 
-            res.status(204).json({
-                messsage: `Successfully deleted deadline.`,
-            });
+            res.status(204).json({});
         } catch (error) {
             return error;
         }

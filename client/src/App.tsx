@@ -1,10 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import { ThemeProvider } from 'styled-components';
 
+// import { Header } from './components/Header';
+import { PrivateRoute } from './components/PrivateRoute';
 import { Header } from './components/Header';
+import { Landing } from './components/Landing';
+import { DeadlineList } from './components/DeadlineList';
+import { Deadline } from './components/Deadline';
 
 interface State {
     theme: any;
@@ -31,32 +36,17 @@ class App extends React.Component<Props, State> {
         return (
             this.props.theme && (
                 <ThemeProvider theme={this.props.theme.data}>
-                    <Header />
+                    <BrowserRouter>
+                        <Header user={this.props.user} />
+
+                        <Switch>
+                            <Route exact path='/' component={Landing} />
+                            <PrivateRoute exact path='/deadlines' component={DeadlineList} user={this.props.user} redirectTo="/" />
+                            <PrivateRoute path='/deadlines/:title' component={Deadline} user={this.props.user} redirectTo="/" />
+                        </Switch>
+                    </BrowserRouter>
                 </ThemeProvider>
             )
-            
-            // this.props.theme && (
-            //     <ThemeProvider theme={this.props.theme}>
-            //         <BrowserRouter>
-            //             <div>
-            //                 {/* <Header /> */}
-
-            //                 <div className='container'>
-            //                     <Switch>
-            //                         {/* <Route exact path='/' component={Landing} />
-
-            //                         {this.props.auth._id &&
-            //                             <Route path='/deadlines' component={Deadlines} />
-            //                         }
-
-            //                         <Route component={NoRoutes} /> */}
-            //                     </Switch>
-            //                 </div>
-            //             </div>
-            //         </BrowserRouter>
-            //         {/* <Countdown /> */}
-            //     </ThemeProvider>
-            // )
         );
     }
 }

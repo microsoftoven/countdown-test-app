@@ -1,5 +1,9 @@
 import * as actionTypes from './types';
 
+export function fetchPages() {
+    return {};
+}
+
 export function fetchUser() {
     return {
         type: actionTypes.FETCH_USER,
@@ -49,5 +53,11 @@ export function deleteDeadline(data: IDeadline) {
 export function dismissNotification() {
     return {
         type: actionTypes.DISMISS_NOTIFICATION,
+    };
+}
+
+export function updateNotification() {
+    return {
+        type: actionTypes.UPDATE_NOTIFICATION,
     };
 }

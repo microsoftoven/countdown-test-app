@@ -1,8 +1,9 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import * as actionTypes from '../actions/types';
+import * as notificationTypes from '../constants/notifications';
 
 export async function fetchDeadlineAPI(id: string) {
-    fetch(`/api/deadlines/${id}`)
+    const result = await fetch(`/api/deadlines/${id}`)
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -10,6 +11,8 @@ export async function fetchDeadlineAPI(id: string) {
         .catch((error) => {
             throw error;
         });
+
+    return result;
 }
 
 export function* fetchDeadline(action: any) {
@@ -20,15 +23,24 @@ export function* fetchDeadline(action: any) {
             payload: deadline,
         });
     } catch (error) {
-        yield put({
-            type: actionTypes.FETCH_DEADLINE_ERROR,
-            message: error.message,
-        });
+        yield all([
+            put({
+                type: actionTypes.FETCH_DEADLINE_ERROR,
+                message: error.message,
+            }),
+            put({
+                type: actionTypes.UPDATE_NOTIFICATION,
+                payload: notificationTypes.NOTIFICATION_FETCH_DEADLINE_ERROR,
+            }),
+        ]);
     }
 }
 
 export async function addDeadlineAPI(data: IDeadline) {
-    fetch(`/api/deadlines/`, { method: 'POST', body: JSON.stringify(data) })
+    const result = await fetch(`/api/deadlines/`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+    })
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -36,28 +48,41 @@ export async function addDeadlineAPI(data: IDeadline) {
         .catch((error) => {
             throw error;
         });
+
+    return result;
 }
 
 export function* addDeadline(action: any) {
     try {
         const result = yield call(addDeadlineAPI, action.payload);
+
         yield all([
             put({
                 type: actionTypes.ADD_DEADLINE_SUCCESS,
                 message: result.message,
             }),
             put({ type: actionTypes.FETCH_DEADLINE_LIST }),
+            put({
+                type: actionTypes.UPDATE_NOTIFICATION,
+                payload: notificationTypes.NOTIFICATION_ADD_DEADLINE_SUCCESS,
+            }),
         ]);
     } catch (error) {
-        yield put({
-            type: actionTypes.ADD_DEADLINE_ERROR,
-            message: error.message,
-        });
+        yield all([
+            put({
+                type: actionTypes.ADD_DEADLINE_ERROR,
+                message: error.message,
+            }),
+            put({
+                type: actionTypes.UPDATE_NOTIFICATION,
+                payload: notificationTypes.NOTIFICATION_ADD_DEADLINE_ERROR,
+            }),
+        ]);
     }
 }
 
 export async function updateDeadlineAPI(data: IDeadline) {
-    fetch(`/api/deadlines/${data._id}`, {
+    const result = await fetch(`/api/deadlines/${data._id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
     })
@@ -68,6 +93,8 @@ export async function updateDeadlineAPI(data: IDeadline) {
         .catch((error) => {
             throw error;
         });
+
+    return result;
 }
 
 export function* updateDeadline(action: any) {
@@ -80,17 +107,27 @@ export function* updateDeadline(action: any) {
                 payload: result.data,
             }),
             put({ type: actionTypes.FETCH_DEADLINE_LIST }),
+            put({
+                type: actionTypes.UPDATE_NOTIFICATION,
+                payload: notificationTypes.NOTIFICATION_UPDATE_DEADLINE_SUCCESS,
+            }),
         ]);
     } catch (error) {
-        yield put({
-            type: actionTypes.UPDATE_DEADLINE_ERROR,
-            message: error.message,
-        });
+        yield all([
+            put({
+                type: actionTypes.UPDATE_DEADLINE_ERROR,
+                message: error.message,
+            }),
+            put({
+                type: actionTypes.UPDATE_NOTIFICATION,
+                payload: notificationTypes.NOTIFICATION_UPDATE_DEADLINE_ERROR,
+            }),
+        ]);
     }
 }
 
 export async function deleteDeadlineAPI(data: IDeadline) {
-    fetch(`/api/deadlines/${data._id}`, { method: 'DELETE' })
+    const result = fetch(`/api/deadlines/${data._id}`, { method: 'DELETE' })
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -98,25 +135,28 @@ export async function deleteDeadlineAPI(data: IDeadline) {
         .catch((error) => {
             throw error;
         });
+
+    return result;
 }
 
 export function* deleteDeadline(action: any) {
-    console.log('helo');
     try {
-        const result = yield call(deleteDeadlineAPI, action.payload);
+        yield call(deleteDeadlineAPI, action.payload);
+
         yield all([
             put({
                 type: actionTypes.DELETE_DEADLINE_SUCCESS,
-                message: result.message,
-                payload: result.data,
             }),
             put({ type: actionTypes.FETCH_DEADLINE_LIST }),
         ]);
     } catch (error) {
-        yield put({
-            type: actionTypes.DELETE_DEADLINE_ERROR,
-            message: error.message,
-        });
+        yield all([
+            put({ type: actionTypes.DELETE_DEADLINE_ERROR }),
+            put({
+                type: actionTypes.UPDATE_NOTIFICATION,
+                payload: notificationTypes.NOTIFICATION_DELETE_DEADLINE_ERROR,
+            }),
+        ]);
     }
 }
 

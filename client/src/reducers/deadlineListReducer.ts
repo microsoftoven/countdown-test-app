@@ -8,28 +8,12 @@ export const deadlineListReducer = (
 ) => {
     switch (action.type) {
         case actionTypes.FETCH_DEADLINE_LIST:
-            return {
-                ...state,
-                loading: true,
-            };
+        case actionTypes.FETCH_DEADLINE_LIST_ERROR:
+            return state;
         case actionTypes.FETCH_DEADLINE_LIST_SUCCESS:
             return {
                 ...state,
-                loading: false,
-                deadlines: action.payload,
-            };
-        case actionTypes.FETCH_DEADLINE_LIST_ERROR:
-            return {
-                ...state,
-                loading: false,
-                error: true,
-                notification: {
-                    active: true,
-                    message: action.message,
-                    type: NotificationType.Error,
-                    size: NotificationSize.Large,
-                    autoDismiss: false,
-                },
+                ...action.payload,
             };
         default:
             return state;

@@ -1,7 +1,7 @@
 interface IUser {
-    _id: string;
-    googleID: string;
-    __v: number;
+    _id: string | null | undefined;
+    googleID?: string;
+    __v?: number;
 }
 
-type UserState = {};
+type UserState = IUser;
