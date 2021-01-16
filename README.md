@@ -21,3 +21,17 @@ TODO
 [ ] or do we do silent notifications with movement and a 'new' indicator..
 [ ] if time maybe do a little onboarding on 'get started'
 [ ] clean up unused packages
+[ ] if logged in should we redirect to most recent deadline when clicking 'home'?
+[ ] some sort of state for a  reached deadline
+[ ] probably add notes on using a library for time calculation because of days/months/years 
+
+
+
+
+[X] modal
+[ ] add / edit deadline
+    [ ] that name is already in use
+    [ ] form validation
+    [ ] use same modal, if it already exists adjust actions
+[ ] deadline list
+[ ] single deadline

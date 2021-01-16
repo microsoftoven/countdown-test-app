@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledHeader } from './styles';
+import { StyledHeader, AppLogo } from './styles';
+import logo from './logo-countdown.svg';
 
 interface Props {
-    user: IUser
+    user: IUser;
 }
 
 export const Header: React.FC<Props> = ({ user }) => {
@@ -18,10 +19,10 @@ export const Header: React.FC<Props> = ({ user }) => {
             default:
                 return [
                     <li key='header-1'>
-                        <a href='/deadlines'>deadlines</a>
+                        <Link to='/deadlines'>deadlines</Link>
                     </li>,
                     <li key='header-2'>
-                        <a href='/api/logout'>logout</a>
+                        <Link to='/api/logout'>logout</Link>
                     </li>,
                 ];
         }
@@ -31,6 +32,7 @@ export const Header: React.FC<Props> = ({ user }) => {
         <StyledHeader>
             <nav className=''>
                 <Link to='/' className='brand-logo'>
+                    <AppLogo src={logo} alt='countdown app clock logo' />{' '}
                     countdown.app
                 </Link>
 
