@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledHeader, AppLogo } from './styles';
+import { StyledHeader, StyledNav, AppLogo } from './styles';
 import logo from './logo-countdown.svg';
 
 interface Props {
@@ -30,14 +30,17 @@ export const Header: React.FC<Props> = ({ user }) => {
 
     return (
         <StyledHeader>
-            <nav className=''>
-                <Link to='/' className='brand-logo'>
-                    <AppLogo src={logo} alt='countdown app clock logo' />{' '}
-                    countdown.app
+            <StyledNav>
+                <Link to='/' className='ctdn__logo'>
+                    <AppLogo src={logo} alt='countdown app clock logo' />
+
+                    <span className='ctdn__nav--title'>
+                        <strong>count</strong>down.app
+                    </span>
                 </Link>
 
                 <ul>{renderContent()}</ul>
-            </nav>
+            </StyledNav>
         </StyledHeader>
     );
 };

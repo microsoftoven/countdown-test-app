@@ -46,6 +46,7 @@ export async function addDeadlineAPI(data: IDeadline) {
             return data;
         })
         .catch((error) => {
+            console.log(error);
             throw error;
         });
 
@@ -59,7 +60,7 @@ export function* addDeadline(action: any) {
         yield all([
             put({
                 type: actionTypes.ADD_DEADLINE_SUCCESS,
-                message: result.message,
+                payload: result,
             }),
             put({ type: actionTypes.FETCH_DEADLINE_LIST }),
             put({

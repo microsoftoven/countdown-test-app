@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledCloseSVG = styled.svg`
     path {
-        fill: #777777;
+        fill: #949494;
         transition: fill 0.15s ease-in-out;
     }
 `;

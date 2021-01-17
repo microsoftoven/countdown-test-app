@@ -2,7 +2,7 @@ interface RootState {
     user: UserState;
     theme: ThemeState;
     deadlineList: DeadlineListState;
-    activeDeadline?: {};
+    activeDeadline?: DeadlineState;
     error?: true;
     loading?: false;
     notification?: NotificationState;

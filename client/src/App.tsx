@@ -20,14 +20,13 @@ interface State {
 interface Props {
     fetchUser: Function;
     fetchTheme: Function;
+    addDeadline: Function;
     user: UserState;
     theme: ThemeState;
 }
 
 class App extends React.Component<Props, State> {
-    state: State = {
-        // showModal: false,
-    };
+    state: State = {};
 
     componentDidMount() {
         this.props.fetchTheme();
@@ -59,7 +58,7 @@ class App extends React.Component<Props, State> {
                                 />
                             </Switch>
 
-                            <Footer user={this.props.user} />
+                            <Footer />
                         </BrowserRouter>
                     </AppWrapper>
                 </ThemeProvider>

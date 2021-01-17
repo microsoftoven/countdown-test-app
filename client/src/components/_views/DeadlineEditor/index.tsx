@@ -1,54 +1,149 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../../actions';
 
-import Modal from '../../_ui/Modal';
-import { Input } from '../../_ui/Input';
+import { DateTimePicker } from '@atlaskit/datetime-picker';
+import { InputWrapper } from '../../_ui/InputWrapper';
 import { Title } from '../../_ui/Title';
+import { Button } from '../../_ui/Button';
+import { StyledModalButtonWrapper } from '../../_ui/Modal/styles';
 
 interface Props {
-    onClose: () => void;
+    onCancel: () => void;
+    addDeadline: (data: IDeadline) => void;
+    resetDeadline: () => void;
+    user: UserState;
+    activeDeadline: DeadlineState;
+    type?: 'add' | 'edit';
 }
 
-const DeadlineEditor: React.FC<Props> = ({ onClose }) => {
-    return (
-        <Modal
-            onClose={() => {
-                onClose();
-            }}
-        >
-            <div>
-                <Title text='new deadline' tag='h3' />
+const DeadlineEditor: React.FC<Props> = ({
+    onCancel,
+    addDeadline,
+    resetDeadline,
+    activeDeadline,
+    user,
+}) => {
+    const [title, setTitle] = useState<string | undefined>(undefined);
+    const [datetime, setDatetime] = useState<string>(new Date().toISOString());
+    const [currentDatetime, setCurrentDatetime] = useState<string>(
+        new Date().toISOString()
+    );
+    const [titleError, setTitleError] = useState<boolean>(false);
+    const [dateError, setDateError] = useState<boolean>(false);
 
-                <form>
-                    <Input
+    useEffect(() => {
+        title === '' ? setTitleError(true) : setTitleError(false);
+    }, [title]);
+
+    useEffect(() => {
+        datetime === '' || datetime < currentDatetime
+            ? setDateError(true)
+            : setDateError(false);
+    }, [datetime, currentDatetime]);
+
+    useEffect(() => {
+        clearState();
+
+        return () => {
+            setTimeout(() => {
+                resetDeadline();
+            }, 150);
+        };
+    }, []);
+
+    const clearState = () => {
+        setTitle(undefined);
+        setDatetime(new Date().toISOString());
+        setTitleError(false);
+        setDateError(false);
+    };
+
+    return (
+        <div>
+            <Title text='new deadline' tag='h3' />
+
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+
+                    if (!titleError && !dateError && user._id) {
+                        addDeadline({
+                            userID: user._id,
+                            title: title,
+                            timestamp: datetime,
+                        });
+                    }
+                }}
+            >
+                <InputWrapper
+                    name='title'
+                    label='Title'
+                    error={titleError}
+                    errorMessage='This field is required.'
+                >
+                    <input
+                        value={title}
                         type='text'
                         name='title'
-                        label='Title'
-                        handleChange={(e) => {
-                            console.log(e.target.value);
+                        required
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </InputWrapper>
+
+                <InputWrapper
+                    name='timestamp'
+                    label='Date / Time'
+                    error={dateError}
+                    errorMessage='Please select a date and time in the future.'
+                >
+                    <DateTimePicker
+                        defaultValue={currentDatetime}
+                        timeIsEditable
+                        onChange={(value) => {
+                            setCurrentDatetime(new Date().toISOString());
+                            setDatetime(new Date(value).toISOString());
+                        }}
+                    />
+                </InputWrapper>
+
+                <StyledModalButtonWrapper>
+                    <Button
+                        text='cancel'
+                        type='button'
+                        buttonStyle='secondary'
+                        handleClick={(e) => {
+                            onCancel();
                         }}
                     />
 
-                    <Input
-                        type='datetime-local'
-                        name='datetime'
-                        label='Date / Time'
-                        handleChange={(e) => {
-                            console.log(e.target.value);
+                    <Button
+                        text='save'
+                        type='submit'
+                        buttonStyle='primary'
+                        pending={activeDeadline.pending}
+                        success={activeDeadline.success}
+                        handleClick={() => {
+                            console.log('save');
                         }}
                     />
+                </StyledModalButtonWrapper>
 
-                    <button>Cancel</button>
-
-                    <button>Save</button>
-
-                    <button>Delete</button>
-                </form>
-            </div>
-        </Modal>
+                {/* <Button
+                    text='delete'
+                    type='danger'
+                    handleClick={() => {
+                        console.log('delete');
+                    }}
+                /> */}
+            </form>
+        </div>
     );
 };
 
 export default connect((state: RootState) => {
-    return {};
-})(DeadlineEditor);
+    return {
+        user: state.user,
+        activeDeadline: state.activeDeadline ? state.activeDeadline : {},
+    };
+}, actions)(DeadlineEditor);

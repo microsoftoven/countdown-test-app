@@ -10,6 +10,7 @@ export const StyledButton = styled.button`
     cursor: pointer;
     font-size: 18px;
     font-weight: 600;
+    max-height: 56px;
     padding: 15px 20px;
     transition: all 0.15s ease-in-out;
 
@@ -89,5 +90,22 @@ export const StyledButton = styled.button`
             background-color: #ffffff;
             color: red;
         }
+    }
+
+    &.pending {
+        background-color: ${(props) =>
+            props.theme.buttons?.primary_button_background_color || 'blue'};
+        pointer-events: none;
+        padding: 12px 20px;
+    }
+
+    &.success,
+    &.success:focus,
+    &.success:active {
+        background-color: #49c02b;
+        border-color: #49c02b;
+        color: #ffffff;
+        cursor: normal;
+        pointer-events: none;
     }
 `;

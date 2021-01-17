@@ -71,10 +71,24 @@ export const StyledModal = styled.div`
     background-color: ${(props) =>
         props.theme.modal?.background_color || '#FFFFFF'};
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.13);
-    padding: 60px 30px;
+    padding: 60px 30px 30px;
 
     @media screen and (min-width: 768px) {
         border-radius: ${(props) => props.theme.modal?.border_radius || '24px'};
-        padding: 60px 40px;
+        padding: 60px 40px 40px;
+    }
+`;
+
+export const StyledModalButtonWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    button {
+        margin: 0 20px 0 0;
+
+        &:last-of-type {
+            margin: 0;
+        }
     }
 `;

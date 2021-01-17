@@ -1,13 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
 import { StyledButton } from './styles';
+import loadingButton from '../../../assets/images/button-loading.svg';
+import { ReactSVG } from 'react-svg';
 
 interface Props {
-    handleClick: () => void;
+    handleClick: (e?: React.ChangeEvent<HTMLInputElement> | any) => void;
     text: string;
     disabled?: boolean;
     className?: string;
-    buttonType?: 'primary' | 'secondary' | 'knockout' | 'danger';
+    buttonStyle?: 'primary' | 'secondary' | 'knockout' | 'danger';
+    type?: 'button' | 'submit' | 'reset' | undefined;
+    pending?: boolean;
+    success?: boolean;
 }
 
 export const Button: React.FC<Props> = ({
@@ -15,16 +20,31 @@ export const Button: React.FC<Props> = ({
     handleClick,
     disabled,
     className,
-    buttonType = 'primary',
+    buttonStyle = 'primary',
+    type = 'button',
+    pending = false,
+    success = false,
 }) => {
+    const buttonContent = pending ? (
+        <ReactSVG src={loadingButton} />
+    ) : success ? (
+        'Saved!'
+    ) : (
+        text
+    );
+
     return (
         <StyledButton
-            className={classNames(className, buttonType)}
-            onClick={() => {
-                if (!disabled) handleClick();
+            className={classNames(className, buttonStyle, {
+                pending: pending,
+                success: success,
+            })}
+            onClick={(e) => {
+                if (!disabled) handleClick(e);
             }}
+            type={type}
         >
-            {text}
+            {buttonContent}
         </StyledButton>
     );
 };

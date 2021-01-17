@@ -50,6 +50,12 @@ export function deleteDeadline(data: IDeadline) {
     };
 }
 
+export function resetDeadline() {
+    return {
+        type: actionTypes.RESET_DEADLINE_STATUS,
+    };
+}
+
 export function dismissNotification() {
     return {
         type: actionTypes.DISMISS_NOTIFICATION,

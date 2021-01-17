@@ -1,14 +1,21 @@
-import { Location } from 'history';
 import React from 'react';
-import { Button } from '../../_ui/Button';
+import { ReactSVG } from 'react-svg';
+
+import { StyledAddButton } from './styles';
+import addButton from '../../../assets/images/button-add.svg';
 
 interface Props {
-    text: string;
-    handleClick: () => void;
+    handleClick: (e?: React.ChangeEvent<HTMLInputElement> | any) => void;
 }
 
-export const AddButton: React.FC<Props> = ({ text, handleClick }) => {
+export const AddButton: React.FC<Props> = ({ handleClick }) => {
     return (
-        <Button handleClick={handleClick} buttonType='primary' text={text} />
+        <StyledAddButton
+            onClick={(e) => {
+                handleClick(e);
+            }}
+        >
+            <ReactSVG src={addButton} />
+        </StyledAddButton>
     );
 };
