@@ -5,7 +5,6 @@ import * as actions from './actions';
 import { ThemeProvider } from 'styled-components';
 import 'normalize.css';
 
-import { Modal } from './components/_ui/Modal';
 import { AppWrapper } from './components/_layout/AppWrapper';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Header } from './components/_layout/Header';

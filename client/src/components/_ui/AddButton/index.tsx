@@ -8,5 +8,7 @@ interface Props {
 }
 
 export const AddButton: React.FC<Props> = ({ text, handleClick }) => {
-    return <Button handleClick={handleClick} text={text} />;
+    return (
+        <Button handleClick={handleClick} buttonType='primary' text={text} />
+    );
 };

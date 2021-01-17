@@ -1,18 +1,30 @@
 import React from 'react';
+import classNames from 'classnames';
+import { StyledButton } from './styles';
 
 interface Props {
     handleClick: () => void;
     text: string;
+    disabled?: boolean;
+    className?: string;
+    buttonType?: 'primary' | 'secondary' | 'knockout' | 'danger';
 }
 
-export const Button: React.FC<Props> = ({ text, handleClick }) => {
+export const Button: React.FC<Props> = ({
+    text,
+    handleClick,
+    disabled,
+    className,
+    buttonType = 'primary',
+}) => {
     return (
-        <button
+        <StyledButton
+            className={classNames(className, buttonType)}
             onClick={() => {
-                handleClick();
+                if (!disabled) handleClick();
             }}
         >
             {text}
-        </button>
+        </StyledButton>
     );
 };

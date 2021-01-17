@@ -5,4 +5,9 @@ export const StyledAppWrapper = styled.section`
     min-height: 100vh;
     font-family: ${(props) =>
         props.theme.primary_font_family.regular || 'sans-serif'};
+
+    &,
+    * {
+        box-sizing: border-box;
+    }
 `;

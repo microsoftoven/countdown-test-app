@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AddButton } from '../../_ui/AddButton';
+
 import DeadlineEditor from '../DeadlineEditor';
+import { AddButton } from '../../_ui/AddButton';
 
 interface Props {}
 
@@ -24,7 +25,7 @@ export const DeadlineList: React.FC<Props> = () => {
 
             <AddButton text='Add Deadline' handleClick={toggleModal} />
 
-            {showModal && <DeadlineEditor />}
+            {showModal && <DeadlineEditor onClose={toggleModal} />}
         </div>
     );
 };

@@ -1,29 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Modal } from '../../_ui/Modal';
 
-interface Props {}
+import Modal from '../../_ui/Modal';
+import { Input } from '../../_ui/Input';
+import { Title } from '../../_ui/Title';
 
-const DeadlineEditor: React.FC<Props> = () => {
-    useEffect(() => {}, []);
+interface Props {
+    onClose: () => void;
+}
 
+const DeadlineEditor: React.FC<Props> = ({ onClose }) => {
     return (
-        <Modal>
-            <>
-                <h2>Add Deadline</h2>
+        <Modal
+            onClose={() => {
+                onClose();
+            }}
+        >
+            <div>
+                <Title text='new deadline' tag='h3' />
 
-                <input type='text' placeholder='title' />
+                <form>
+                    <Input
+                        type='text'
+                        name='title'
+                        label='Title'
+                        handleChange={(e) => {
+                            console.log(e.target.value);
+                        }}
+                    />
 
-                <input type='text' placeholder='date' />
+                    <Input
+                        type='datetime-local'
+                        name='datetime'
+                        label='Date / Time'
+                        handleChange={(e) => {
+                            console.log(e.target.value);
+                        }}
+                    />
 
-                <button>Cancel</button>
+                    <button>Cancel</button>
 
-                <button>Save</button>
+                    <button>Save</button>
 
-                <button>Delete</button>
-            </>
+                    <button>Delete</button>
+                </form>
+            </div>
         </Modal>
     );
 };
 
-export default connect((state: RootState) => {})(DeadlineEditor);
+export default connect((state: RootState) => {
+    return {};
+})(DeadlineEditor);
