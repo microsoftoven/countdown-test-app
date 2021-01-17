@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledHeader, StyledNav, AppLogo } from './styles';
+
+import { StyledHeader, StyledNav, AppLogo, StyledMenu } from './styles';
 import logo from './logo-countdown.svg';
+import { Button } from '../../_ui/Button';
 
 interface Props {
     user: IUser;
@@ -13,7 +15,9 @@ export const Header: React.FC<Props> = ({ user }) => {
             case null:
                 return (
                     <li>
-                        <a href='/auth/google'>Login / Sign Up</a>
+                        <a href='/auth/google'>
+                            <Button text='Log In' />
+                        </a>
                     </li>
                 );
             default:
@@ -22,7 +26,9 @@ export const Header: React.FC<Props> = ({ user }) => {
                         <Link to='/deadlines'>deadlines</Link>
                     </li>,
                     <li key='header-2'>
-                        <Link to='/api/logout'>logout</Link>
+                        <Link to='/api/logout'>
+                            <Button text='Log Out' />
+                        </Link>
                     </li>,
                 ];
         }
@@ -39,7 +45,7 @@ export const Header: React.FC<Props> = ({ user }) => {
                     </span>
                 </Link>
 
-                <ul>{renderContent()}</ul>
+                <StyledMenu>{renderContent()}</StyledMenu>
             </StyledNav>
         </StyledHeader>
     );

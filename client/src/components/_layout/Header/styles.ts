@@ -36,11 +36,6 @@ export const StyledNav = styled.nav`
     }
 `;
 
-export const StyledLogoHeader = styled.a`
-    display: inline-block;
-    text-decoration: none;
-`;
-
 export const AppLogo = styled.img`
     height: 36px;
     width: 36px;
@@ -48,5 +43,14 @@ export const AppLogo = styled.img`
     @media screen and (min-width: 768px) {
         height: 46px;
         width: 46px;
+    }
+`;
+
+export const StyledMenu = styled.ul`
+    margin: 0;
+
+    li {
+        display: inline-block;
+        list-style-type: none;
     }
 `;

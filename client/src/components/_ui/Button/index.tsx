@@ -5,7 +5,7 @@ import loadingButton from '../../../assets/images/button-loading.svg';
 import { ReactSVG } from 'react-svg';
 
 interface Props {
-    handleClick: (e?: React.ChangeEvent<HTMLInputElement> | any) => void;
+    handleClick?: (e?: React.ChangeEvent<HTMLInputElement> | any) => void;
     text: string;
     disabled?: boolean;
     className?: string;
@@ -40,7 +40,7 @@ export const Button: React.FC<Props> = ({
                 success: success,
             })}
             onClick={(e) => {
-                if (!disabled) handleClick(e);
+                if (!disabled && handleClick) handleClick(e);
             }}
             type={type}
         >

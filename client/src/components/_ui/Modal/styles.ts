@@ -45,8 +45,8 @@ export const StyledModalWrapper = styled.div`
 
     .close-btn {
         position: absolute;
-        right: 20px;
-        top: 20px;
+        right: 10px;
+        top: 10px;
 
         @media screen and (min-width: 768px) {
             top: 30px;
@@ -71,7 +71,7 @@ export const StyledModal = styled.div`
     background-color: ${(props) =>
         props.theme.modal?.background_color || '#FFFFFF'};
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.13);
-    padding: 60px 30px 30px;
+    padding: 60px 20px 30px;
 
     @media screen and (min-width: 768px) {
         border-radius: ${(props) => props.theme.modal?.border_radius || '24px'};
