@@ -1,25 +1,30 @@
 import React from 'react';
 
+import { PageAlignCenter } from '../../_layout/Page';
+import { LandingDescription } from './styles';
 import { Countdown } from '../../Countdown';
 // import { Button } from '../../_ui/Button';
+import { DisplayTitle } from '../../_ui/DisplayTitle';
+import { Tagline } from '../../_ui/Tagline';
 
 export const Landing = () => {
-    let countdownDate = new Date('2022-02-03');
+    let countdownDate = new Date();
+    countdownDate.setMonth(countdownDate.getMonth() + 1);
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <h1>
-                <strong>count</strong>down
-            </h1>
+        <PageAlignCenter>
+            <DisplayTitle />
 
-            <span className='tagline'>hit your deadlines.</span>
+            <Tagline text='hit your deadlines.' />
 
             <Countdown date={countdownDate} />
 
-            <p>
-                Countdown is a free web app that helps you manage your deadlines
-                with a simple, intuitive interface.
-            </p>
-        </div>
+            <LandingDescription>
+                <p>
+                    Countdown is a free web app that helps you manage your
+                    deadlines with a simple, intuitive interface.
+                </p>
+            </LandingDescription>
+        </PageAlignCenter>
     );
 };

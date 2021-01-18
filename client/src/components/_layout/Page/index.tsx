@@ -1,13 +1,16 @@
 import React from 'react';
+import { StyledPage, StyledPageAlignCenter } from './styles';
 
-interface Props {
+interface Props {}
 
-}
+export const Page: React.FC<Props> = ({ children }) => {
+    return <StyledPage className='ctnd__page'>{children}</StyledPage>;
+};
 
-export const Page: React.FC<Props> = ({children}) => {
+export const PageAlignCenter: React.FC<Props> = ({ children }) => {
     return (
-        <section className="ctapp">
-            {children}
-        </section>
-    )
-}
+        <StyledPageAlignCenter className='ctnd__page'>
+            <div>{children}</div>
+        </StyledPageAlignCenter>
+    );
+};

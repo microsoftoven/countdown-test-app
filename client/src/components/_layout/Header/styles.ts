@@ -13,31 +13,40 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledNav = styled.nav`
+    align-items: center;
+    color: ${(props) => props.theme.text?.primary_text_color || '#222222'};
+    display: flex;
     justify-content: space-between;
 
-    &,
-    .ctdn__logo {
-        color: ${(props) => props.theme.text?.primary_text_color || '#222222'};
-        align-items: center;
-        display: flex;
-
-        img {
-            margin: 0 20px 0 0;
-        }
-    }
-
-    .ctdn__logo {
-        font-size: 20px;
+    a {
         text-decoration: none;
+    }
+`;
 
-        @media screen and (min-width: 768px) {
-            font-size: 30px;
-        }
+export const StyledTitleContainer = styled.div`
+    align-items: center;
+    color: ${(props) => props.theme.text?.primary_text_color || '#222222'};
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    text-decoration: none;
+
+    @media screen and (min-width: 768px) {
+        font-size: 30px;
+    }
+`;
+
+export const StyledTitle = styled.div`
+    text-decoration: none;
+
+    span {
+        font-weight: 700;
     }
 `;
 
 export const AppLogo = styled.img`
     height: 36px;
+    margin: 0 20px 0 0;
     width: 36px;
 
     @media screen and (min-width: 768px) {
@@ -48,9 +57,38 @@ export const AppLogo = styled.img`
 
 export const StyledMenu = styled.ul`
     margin: 0;
+    padding: 0;
 
     li {
         display: inline-block;
         list-style-type: none;
+    }
+`;
+
+export const StyledMenuItem = styled.li`
+    margin: 0 0 0 30px;
+
+    a {
+        color: ${(props) => props.theme.text?.primary_text_color || '#222222'};
+        font-weight: 700;
+        transition: color 0.15s ease-in-out;
+
+        &:hover {
+            color: ${(props) =>
+                props.theme.global?.primary_active_color || 'blue'};
+        }
+    }
+`;
+
+export const SignInButtonWrapper = styled.div`
+    #path-1 {
+        fill: #ffffff;
+        transition: fill 0.15s ease-in-out;
+    }
+
+    &:hover {
+        #path-1 {
+            fill: #eeeeee;
+        }
     }
 `;

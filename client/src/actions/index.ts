@@ -67,3 +67,10 @@ export function updateNotification() {
         type: actionTypes.UPDATE_NOTIFICATION,
     };
 }
+
+export function updateModal(data: IModal) {
+    return {
+        type: actionTypes.UPDATE_MODAL,
+        payload: data,
+    };
+}

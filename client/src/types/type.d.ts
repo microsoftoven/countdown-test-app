@@ -6,6 +6,7 @@ interface RootState {
     error?: true;
     loading?: false;
     notification?: NotificationState;
+    modalState: ModalState;
 }
 
 type ActionTypes = {

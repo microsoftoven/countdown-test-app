@@ -1,3 +1,5 @@
-interface IDeadlineList {}
+interface IDeadlineList {
+    deadlines?: IDeadline[];
+}
 
-type DeadlineListState = IDeadline[];
+type DeadlineListState = {};

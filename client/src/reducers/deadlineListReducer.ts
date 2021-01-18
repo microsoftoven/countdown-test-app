@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/types';
 
-const initialState: DeadlineListState = [];
+const initialState: DeadlineListState = {};
 
 export const deadlineListReducer = (
     state = initialState,

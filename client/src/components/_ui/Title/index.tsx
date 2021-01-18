@@ -1,17 +1,43 @@
 import React from 'react';
-import { StyledTitle } from './styles';
+import classNames from 'classnames';
+import { StyledTitle, StickyTitle } from './styles';
 
 interface Props {
-    text: string;
-    tag: 'h1' | 'h2' | 'h3';
+    tag?: 'h1' | 'h2' | 'h3';
+    sticky?: boolean;
+    handleClick?: () => void;
 }
 
-export const Title: React.FC<Props> = ({ text, tag = 'h2' }) => {
+export const Title: React.FC<Props> = ({
+    children,
+    tag = 'h2',
+    sticky = false,
+    handleClick,
+}) => {
     const Tag = tag;
 
-    return (
-        <StyledTitle>
-            <Tag>{text}</Tag>
-        </StyledTitle>
-    );
+    if (sticky) {
+        return (
+            <StickyTitle>
+                <StyledTitle
+                    className={classNames({
+                        clickable: handleClick ? true : false,
+                    })}
+                    onClick={() => {
+                        if (handleClick) {
+                            handleClick();
+                        }
+                    }}
+                >
+                    <Tag>{children}</Tag>
+                </StyledTitle>
+            </StickyTitle>
+        );
+    } else {
+        return (
+            <StyledTitle>
+                <Tag>{children}</Tag>
+            </StyledTitle>
+        );
+    }
 };

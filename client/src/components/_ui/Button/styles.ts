@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 
-// "buttons": {
-//     "secondary_button_background_color": "#4a4a4a"
-// },
-
 export const StyledButton = styled.button`
     -webkit-appearance: none;
     border: 3px solid transparent;
     cursor: pointer;
     font-size: 18px;
     font-weight: 600;
-    max-height: 56px;
-    padding: 15px 20px;
+    max-height: 50px;
+    padding: 12px 18px;
     transition: all 0.15s ease-in-out;
 
     &.primary {
@@ -93,10 +89,14 @@ export const StyledButton = styled.button`
     }
 
     &.pending {
-        background-color: ${(props) =>
-            props.theme.buttons?.primary_button_background_color || 'blue'};
-        pointer-events: none;
-        padding: 12px 20px;
+        &,
+        &:focus,
+        &:active {
+            background-color: ${(props) =>
+                props.theme.buttons?.primary_button_background_color || 'blue'};
+            pointer-events: none;
+            padding: 8px 20px;
+        }
     }
 
     &.success,

@@ -10,7 +10,8 @@ import { PrivateRoute } from './components/PrivateRoute';
 import { Header } from './components/_layout/Header';
 import { Footer } from './components/_layout/Footer';
 import { Landing } from './components/_views/Landing';
-import { DeadlineList } from './components/_views/DeadlineList';
+import { Logout } from './components/_views/Logout';
+import DeadlineList from './components/_views/DeadlineList';
 import { Deadline } from './components/Deadline';
 
 interface State {
@@ -43,6 +44,7 @@ class App extends React.Component<Props, State> {
 
                             <Switch>
                                 <Route exact path='/' component={Landing} />
+                                <Route path='/logged-out' component={Logout} />
                                 <PrivateRoute
                                     exact
                                     path='/deadlines'
@@ -50,8 +52,8 @@ class App extends React.Component<Props, State> {
                                     user={this.props.user}
                                     redirectTo='/'
                                 />
-                                <PrivateRoute
-                                    path='/deadlines/:title'
+                                <Route
+                                    path='/deadlines/:id'
                                     component={Deadline}
                                     user={this.props.user}
                                     redirectTo='/'

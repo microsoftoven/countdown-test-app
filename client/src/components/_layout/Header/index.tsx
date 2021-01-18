@@ -1,8 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
-import { StyledHeader, StyledNav, AppLogo, StyledMenu } from './styles';
-import logo from './logo-countdown.svg';
+import {
+    StyledHeader,
+    StyledNav,
+    AppLogo,
+    StyledMenu,
+    StyledMenuItem,
+    StyledTitleContainer,
+    SignInButtonWrapper,
+} from './styles';
+
+import signinButton from '../../../assets/images/btn_google_signin.svg';
+import logo from '../../../assets/images/logo-countdown.svg';
 import { Button } from '../../_ui/Button';
 
 interface Props {
@@ -16,20 +27,23 @@ export const Header: React.FC<Props> = ({ user }) => {
                 return (
                     <li>
                         <a href='/auth/google'>
-                            <Button text='Log In' />
+                            <SignInButtonWrapper>
+                                <ReactSVG
+                                    src={signinButton}
+                                    alt='Sign in with Google'
+                                />
+                            </SignInButtonWrapper>
                         </a>
                     </li>
                 );
             default:
                 return [
-                    <li key='header-1'>
+                    <StyledMenuItem key='header-1'>
                         <Link to='/deadlines'>deadlines</Link>
-                    </li>,
-                    <li key='header-2'>
-                        <Link to='/api/logout'>
-                            <Button text='Log Out' />
-                        </Link>
-                    </li>,
+                    </StyledMenuItem>,
+                    <StyledMenuItem key='header-2'>
+                        <a href='/api/logout'>logout</a>
+                    </StyledMenuItem>,
                 ];
         }
     };
@@ -38,11 +52,9 @@ export const Header: React.FC<Props> = ({ user }) => {
         <StyledHeader>
             <StyledNav>
                 <Link to='/' className='ctdn__logo'>
-                    <AppLogo src={logo} alt='countdown app clock logo' />
-
-                    <span className='ctdn__nav--title'>
-                        <strong>count</strong>down.app
-                    </span>
+                    <StyledTitleContainer>
+                        <AppLogo src={logo} alt='countdown app clock logo' />
+                    </StyledTitleContainer>
                 </Link>
 
                 <StyledMenu>{renderContent()}</StyledMenu>

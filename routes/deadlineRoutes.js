@@ -9,7 +9,10 @@ module.exports = (app) => {
         try {
             const deadlines = await Deadline.find({
                 userID: req.user.id,
-            }).sort({ timestamp: 'descending' });
+            })
+                .where('timestamp')
+                .gt(new Date().toISOString())
+                .sort({ timestamp: 'ascending' });
 
             res.status(200).json({ deadlines });
         } catch (error) {

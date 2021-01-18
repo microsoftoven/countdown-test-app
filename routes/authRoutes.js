@@ -2,7 +2,7 @@ const passport = require('passport');
 
 module.exports = (app) => {
     app.get('/', (req, res) => {
-        // res.send({ hello: 'world!' });
+        res.send({ hey: 'girl' });
     });
 
     app.get(
@@ -22,7 +22,9 @@ module.exports = (app) => {
 
     app.get('/api/logout', (req, res) => {
         req.logout();
-        res.redirect('/');
+        req.session = null;
+        res.redirect('/logged-out');
+        res.send();
     });
 
     app.get('/api/current_user', (req, res) => {

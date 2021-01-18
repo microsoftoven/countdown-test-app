@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { count } from 'console';
-// import * as duration from 'dayjs/plugin/duration';
+
+import {
+    StyledCountdownWrapper,
+    StyledCountdown,
+    StyledCountdownRow,
+    StyledCountdownItem,
+    StyledNumber,
+    StyledDuration,
+} from './styles';
+
+const _chunk = require('lodash/chunk');
 const duration = require('dayjs/plugin/duration');
 dayjs.extend(duration);
-
-// var duration = require('dayjs/plugin/duration');
-// import { StyledCountdown } from './styles';
 
 // Write your countdown code in this component
 interface Props {
@@ -38,31 +44,6 @@ export const Countdown: React.FC<Props> = ({ date }) => {
             return;
         }
 
-        /*
-         * Code below:
-         * If we were only doing days, hours, minutes, and seconds...sure!
-         * However, anything further than that is a WHOLE lot of logic that we can
-         * simply use a library for, like yeap years.. different days in months.. etc. DayJS to the rescue!
-         * You can uncomment this and comment out the duration logic with dayJS to test it out if you'd like.
-         */
-        // let delta = difference;
-
-        // let days = Math.floor(delta / 86400);
-        // delta -= days * 86400;
-        // let hours = Math.floor(delta / 3600);
-        // delta -= hours * 3600;
-        // let minutes = Math.floor(delta / 60);
-        // delta -= minutes * 60;
-        // let seconds = delta;
-
-        // setRemainingTime({
-        //     days: days,
-        //     hours: hours,
-        //     minutes: minutes,
-        //     seconds: seconds,
-        // });
-
-        // TODO: correctly type countdownDuration
         const countdownDuration: any = dayjs.duration(
             dayjs(date).diff(dayjs(currentDateTime))
         );
@@ -71,34 +52,64 @@ export const Countdown: React.FC<Props> = ({ date }) => {
     };
 
     useEffect(() => {
+        let time = 0;
         if (!countdownComplete) {
             const timer = setTimeout(() => {
                 calculateRemainingTime(date);
-            }, 1000);
+
+                time = 1000;
+            }, time);
 
             return () => clearTimeout(timer);
         }
     });
 
-    let displayTime: Array<Object> = [];
+    const setupTimeDisplay = () => {
+        let result: Array<Object> = [];
 
-    for (let key in remainingTime) {
-        if (key === 'milliseconds') continue;
+        for (let key in remainingTime) {
+            const count: any = remainingTime[key];
+            let displayKey: string = key;
+            let classes: string = key !== 'seconds' && count == 0 ? 'hide' : '';
 
-        displayTime.push(
-            <li className='countdown__list-item' key={`countdown-${key}`}>
-                <span className='countdown__list-item--number'>
-                    {remainingTime[key]}
-                </span>
+            if (key === 'milliseconds') continue;
 
-                <span className='countdown__list-item--interval'>{key}</span>
-            </li>
+            if (count === 1) displayKey = displayKey.slice(0, -1);
+
+            result.push(
+                <StyledCountdownItem
+                    key={`countdown-${key}`}
+                    className={classes}
+                >
+                    <StyledNumber>
+                        {key === 'seconds' && count < 10 && 0}
+                        {remainingTime[key]}
+                    </StyledNumber>
+
+                    <StyledDuration>{displayKey}</StyledDuration>
+                </StyledCountdownItem>
+            );
+        }
+
+        return result;
+    };
+
+    let displayTime: Array<Array<Object>> = _chunk(setupTimeDisplay(), 3);
+    let displaySections = displayTime.map((section, i) => {
+        return (
+            <StyledCountdownRow key={`displaySection-${i}`}>
+                {section}
+            </StyledCountdownRow>
         );
-    }
+    });
 
     return (
-        <div>
-            <ul className='countdown__list'>{displayTime}</ul>
-        </div>
+        <StyledCountdownWrapper>
+            <div style={{ display: 'inline-block' }}>
+                {displaySections.length > 0 && (
+                    <StyledCountdown>{displaySections}</StyledCountdown>
+                )}
+            </div>
+        </StyledCountdownWrapper>
     );
 };

@@ -9,9 +9,10 @@ import { Button } from '../../_ui/Button';
 import { StyledModalButtonWrapper } from '../../_ui/Modal/styles';
 
 interface Props {
-    onCancel: () => void;
+    onCancel?: () => void;
     addDeadline: (data: IDeadline) => void;
     resetDeadline: () => void;
+    updateModal: (data: IModal) => void;
     user: UserState;
     activeDeadline: DeadlineState;
     type?: 'add' | 'edit';
@@ -23,6 +24,7 @@ const DeadlineEditor: React.FC<Props> = ({
     resetDeadline,
     activeDeadline,
     user,
+    updateModal,
 }) => {
     const [title, setTitle] = useState<string | undefined>(undefined);
     const [datetime, setDatetime] = useState<string>(new Date().toISOString());
@@ -46,11 +48,12 @@ const DeadlineEditor: React.FC<Props> = ({
         clearState();
 
         return () => {
+            // console.log('clearing deadline modal');
             setTimeout(() => {
                 resetDeadline();
             }, 150);
         };
-    }, []);
+    }, [resetDeadline]);
 
     const clearState = () => {
         setTitle(undefined);
@@ -61,18 +64,20 @@ const DeadlineEditor: React.FC<Props> = ({
 
     return (
         <div>
-            <Title text='new deadline' tag='h3' />
+            <Title tag='h3'>new deadline</Title>
 
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
 
                     if (!titleError && !dateError && user._id) {
-                        addDeadline({
+                        let payload: IDeadline = {
                             userID: user._id,
                             title: title,
                             timestamp: datetime,
-                        });
+                        };
+
+                        addDeadline(payload);
                     }
                 }}
             >
@@ -113,7 +118,7 @@ const DeadlineEditor: React.FC<Props> = ({
                         type='button'
                         buttonStyle='secondary'
                         handleClick={(e) => {
-                            onCancel();
+                            updateModal({ show: false });
                         }}
                     />
 
@@ -123,9 +128,6 @@ const DeadlineEditor: React.FC<Props> = ({
                         buttonStyle='primary'
                         pending={activeDeadline.pending}
                         success={activeDeadline.success}
-                        handleClick={() => {
-                            console.log('save');
-                        }}
                     />
                 </StyledModalButtonWrapper>
 

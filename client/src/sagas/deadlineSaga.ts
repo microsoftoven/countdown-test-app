@@ -1,4 +1,4 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { call, put, all, takeLatest, delay } from 'redux-saga/effects';
 import * as actionTypes from '../actions/types';
 import * as notificationTypes from '../constants/notifications';
 
@@ -40,6 +40,9 @@ export async function addDeadlineAPI(data: IDeadline) {
     const result = await fetch(`/api/deadlines/`, {
         method: 'POST',
         body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     })
         .then((res) => res.json())
         .then((data) => {
@@ -57,17 +60,13 @@ export function* addDeadline(action: any) {
     try {
         const result = yield call(addDeadlineAPI, action.payload);
 
-        yield all([
-            put({
-                type: actionTypes.ADD_DEADLINE_SUCCESS,
-                payload: result,
-            }),
-            put({ type: actionTypes.FETCH_DEADLINE_LIST }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_ADD_DEADLINE_SUCCESS,
-            }),
-        ]);
+        yield delay(500);
+        yield put({
+            type: actionTypes.ADD_DEADLINE_SUCCESS,
+            payload: result,
+        });
+        yield delay(1000);
+        yield put({ type: actionTypes.FETCH_DEADLINE_LIST });
     } catch (error) {
         yield all([
             put({
@@ -86,6 +85,9 @@ export async function updateDeadlineAPI(data: IDeadline) {
     const result = await fetch(`/api/deadlines/${data._id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     })
         .then((res) => res.json())
         .then((data) => {
