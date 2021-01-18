@@ -3,6 +3,8 @@ import * as actionTypes from '../actions/types';
 import * as notificationTypes from '../constants/notifications';
 
 export async function fetchDeadlineAPI(id: string) {
+    console.log(id);
+
     const result = await fetch(`/api/deadlines/${id}`)
         .then((res) => res.json())
         .then((data) => {

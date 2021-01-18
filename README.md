@@ -48,6 +48,8 @@ TODO
 [ ] close modal on state change for deadline success?
 [ ] move UI actions into UI state like modal and notifications
 [ ] modal transition
+[ ] what do I do with past deadlines? maybe show a checkmark or something, or click a button to view past deadlines
+[ ] handle errors
 
 IF TIME
 [ ] shorturl

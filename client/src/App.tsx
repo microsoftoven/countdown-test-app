@@ -11,8 +11,9 @@ import { Header } from './components/_layout/Header';
 import { Footer } from './components/_layout/Footer';
 import { Landing } from './components/_views/Landing';
 import { Logout } from './components/_views/Logout';
+import { LoadingIndicator } from './components/_ui/LoadingIndicator';
 import DeadlineList from './components/_views/DeadlineList';
-import { Deadline } from './components/Deadline';
+import Deadline from './components/Deadline';
 
 interface State {
     // showModal: boolean;
@@ -66,7 +67,7 @@ class App extends React.Component<Props, State> {
                 </ThemeProvider>
             );
         } else {
-            return <div>Loading...</div>;
+            return <LoadingIndicator fullscreen={true} />;
         }
     }
 }

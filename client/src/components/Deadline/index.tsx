@@ -1,15 +1,58 @@
-import { Match } from '@testing-library/react';
-import React from 'react';
-import { match } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+
+import DeadlineEditor from '../_views/DeadlineEditor';
+import Modal from '../_ui/Modal';
+import { Page } from '../_layout/Page';
+import { Title } from '../_ui/Title';
+import { LoadingIndicator } from '../_ui/LoadingIndicator';
 
 interface Props {
+    fetchDeadline: (data: IDeadline) => void;
     match: any;
+    activeDeadline?: DeadlineState;
 }
 
-export const Deadline: React.FC<Props> = (props) => {
-    const { id } = props.match.params;
+const Deadline: React.FC<Props> = (props) => {
+    const { activeDeadline, fetchDeadline } = props;
+    let loading = true;
 
-    console.log(id);
+    const [deadlineID, setDeadlineID] = useState<any>(props.match.params.id);
 
-    return <div>Single deadline</div>;
+    useEffect(() => {
+        fetchDeadline({ _id: deadlineID });
+    }, [deadlineID, fetchDeadline]);
+
+    return (
+        <Page>
+            <Title tag='h1'>deadlines</Title>
+
+            {/* {!activeDeadline?.success && <LoadingIndicator />} */}
+
+            {loading && <LoadingIndicator />}
+
+            {/* <button
+                onClick={() => {
+                    fetchDeadline({ id: deadlineID });
+                }}
+            >
+                fetch deadline
+            </button> */}
+
+            {/* {deadlineList && (
+                <StyledDeadlineList>{displayDeadlineList()}</StyledDeadlineList>
+            )} */}
+
+            {/* <AddButton handleClick={toggleModal} /> */}
+
+            <Modal>{/* <DeadlineEditor /> */}</Modal>
+        </Page>
+    );
 };
+
+export default connect((state: RootState) => {
+    return {
+        activeDeadline: state.activeDeadline,
+    };
+}, actions)(Deadline);
