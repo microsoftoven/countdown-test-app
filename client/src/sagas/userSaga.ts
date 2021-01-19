@@ -1,6 +1,5 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import * as actionTypes from '../actions/types';
-import * as notificationTypes from '../constants/notifications';
 
 export async function fetchUserAPI() {
     const result = await fetch('/api/current_user')
@@ -21,13 +20,7 @@ export function* fetchUser() {
 
         yield put({ type: actionTypes.FETCH_USER_SUCCESS, payload: user });
     } catch (e) {
-        yield all([
-            put({ type: actionTypes.FETCH_USER_ERROR, message: e.message }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_FETCH_USER_ERROR,
-            }),
-        ]);
+        yield put({ type: actionTypes.FETCH_USER_ERROR, message: e.message });
     }
 }
 

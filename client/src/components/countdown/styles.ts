@@ -7,7 +7,8 @@ export const StyledCountdownWrapper = styled.div`
 export const StyledCountdown = styled.div`
     background-color: #ffffff;
     border-radius: 16px;
-    // box-shadow: 0 0 12px rgba(0, 0, 0, 0.13);
+    border: 1px solid
+        ${(props) => props.theme.global?.primary_border_color || '#eeeeee'};
     padding: 15px;
     display: flex;
     flex-direction: column;

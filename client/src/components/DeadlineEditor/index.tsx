@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions';
+import * as actions from '../../actions';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
-import { InputWrapper } from '../../_ui/InputWrapper';
-import { Title } from '../../_ui/Title';
-import { Button } from '../../_ui/Button';
-import { StyledModalButtonWrapper } from '../../_ui/Modal/styles';
+import { InputWrapper } from '../_ui/InputWrapper';
+import { Title } from '../_ui/Title';
+import { Button } from '../_ui/Button';
+import { StyledModalButtonWrapper } from '../_ui/Modal/styles';
 
 interface Props {
     onCancel?: () => void;
     addDeadline: (data: IDeadline) => void;
     resetDeadline: () => void;
-    updateModal: (data: IModal) => void;
+    // updateModal: (data: IModal) => void;
     user: UserState;
     activeDeadline?: DeadlineState;
     type?: 'add' | 'edit';
@@ -24,7 +24,7 @@ const DeadlineEditor: React.FC<Props> = ({
     resetDeadline,
     activeDeadline,
     user,
-    updateModal,
+    // updateModal,
 }) => {
     const [title, setTitle] = useState<string | undefined>(undefined);
     const [datetime, setDatetime] = useState<string>(new Date().toISOString());
@@ -118,7 +118,7 @@ const DeadlineEditor: React.FC<Props> = ({
                         type='button'
                         buttonStyle='secondary'
                         handleClick={(e) => {
-                            updateModal({ show: false });
+                            // updateModal({ show: false });
                         }}
                     />
 

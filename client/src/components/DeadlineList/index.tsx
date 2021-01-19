@@ -1,33 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import * as actions from '../../../actions';
+import * as actions from '../../actions';
 
 import { StyledDeadlineList } from './styles';
 import DeadlineEditor from '../DeadlineEditor';
-import Modal from '../../_ui/Modal';
-import { Page } from '../../_layout/Page';
-import { AddButton } from '../../_ui/AddButton';
-import { Title } from '../../_ui/Title';
-import { DeadlineCard } from '../../DeadlineCard';
+import Modal from '../_ui/Modal';
+import { Page } from '../_layout/Page';
+import { AddButton } from '../_ui/AddButton';
+import { Title } from '../_ui/Title';
+import { DeadlineCard } from '../DeadlineCard';
+import { FadeInSlideUp } from '../_utilities/animations';
 
 interface Props {
     fetchDeadlineList: () => void;
-    updateModal: (data: IModal) => void;
     deadlineList: IDeadlineList;
 }
 
-const DeadlineList: React.FC<Props> = ({
-    fetchDeadlineList,
-    deadlineList,
-    updateModal,
-}) => {
+const DeadlineList: React.FC<Props> = ({ fetchDeadlineList, deadlineList }) => {
     const [listPage, setListPage] = useState<number>(1);
-
-    const dispatch = useDispatch();
-
-    const toggleModal = () => {
-        updateModal({ show: true });
-    };
 
     useEffect(() => {
         fetchDeadlineList();
@@ -43,17 +33,20 @@ const DeadlineList: React.FC<Props> = ({
         // fetch paged deadlines
     }, [listPage]);
 
-    const displayDeadlineList = () => {
-        let result: Array<Object> = [];
+    let deadlines: Array<Object> = [];
 
-        if (deadlineList.deadlines) {
-            result = deadlineList.deadlines.map((deadline: IDeadline, i) => {
-                return <DeadlineCard key={`deadline-${i}`} {...deadline} />;
-            });
-        }
-
-        return result;
-    };
+    if (deadlineList.deadlines) {
+        deadlines = deadlineList.deadlines.map((deadline: IDeadline, i) => {
+            return (
+                <FadeInSlideUp
+                    animationDelay={`${i * 0.05}s`}
+                    key={deadline._id}
+                >
+                    <DeadlineCard key={`deadline-${i}`} {...deadline} />
+                </FadeInSlideUp>
+            );
+        });
+    }
 
     return (
         <Page>
@@ -72,10 +65,10 @@ const DeadlineList: React.FC<Props> = ({
             </Title>
 
             {deadlineList && (
-                <StyledDeadlineList>{displayDeadlineList()}</StyledDeadlineList>
+                <StyledDeadlineList>{deadlines}</StyledDeadlineList>
             )}
 
-            <AddButton handleClick={toggleModal} />
+            <AddButton handleClick={() => {}} />
 
             <Modal>
                 <DeadlineEditor />

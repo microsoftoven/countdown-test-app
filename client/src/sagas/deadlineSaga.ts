@@ -1,10 +1,7 @@
 import { call, put, all, takeLatest, delay } from 'redux-saga/effects';
 import * as actionTypes from '../actions/types';
-import * as notificationTypes from '../constants/notifications';
 
 export async function fetchDeadlineAPI(id: string) {
-    console.log(id);
-
     const result = await fetch(`/api/deadlines/${id}`)
         .then((res) => res.json())
         .then((data) => {
@@ -25,16 +22,10 @@ export function* fetchDeadline(action: any) {
             payload: deadline,
         });
     } catch (error) {
-        yield all([
-            put({
-                type: actionTypes.FETCH_DEADLINE_ERROR,
-                message: error.message,
-            }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_FETCH_DEADLINE_ERROR,
-            }),
-        ]);
+        yield put({
+            type: actionTypes.FETCH_DEADLINE_ERROR,
+            message: error.message,
+        });
     }
 }
 
@@ -51,7 +42,6 @@ export async function addDeadlineAPI(data: IDeadline) {
             return data;
         })
         .catch((error) => {
-            console.log(error);
             throw error;
         });
 
@@ -70,16 +60,10 @@ export function* addDeadline(action: any) {
         yield delay(1000);
         yield put({ type: actionTypes.FETCH_DEADLINE_LIST });
     } catch (error) {
-        yield all([
-            put({
-                type: actionTypes.ADD_DEADLINE_ERROR,
-                message: error.message,
-            }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_ADD_DEADLINE_ERROR,
-            }),
-        ]);
+        yield put({
+            type: actionTypes.ADD_DEADLINE_ERROR,
+            message: error.message,
+        });
     }
 }
 
@@ -113,22 +97,12 @@ export function* updateDeadline(action: any) {
                 payload: result.data,
             }),
             put({ type: actionTypes.FETCH_DEADLINE_LIST }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_UPDATE_DEADLINE_SUCCESS,
-            }),
         ]);
     } catch (error) {
-        yield all([
-            put({
-                type: actionTypes.UPDATE_DEADLINE_ERROR,
-                message: error.message,
-            }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_UPDATE_DEADLINE_ERROR,
-            }),
-        ]);
+        yield put({
+            type: actionTypes.UPDATE_DEADLINE_ERROR,
+            message: error.message,
+        });
     }
 }
 
@@ -156,13 +130,7 @@ export function* deleteDeadline(action: any) {
             put({ type: actionTypes.FETCH_DEADLINE_LIST }),
         ]);
     } catch (error) {
-        yield all([
-            put({ type: actionTypes.DELETE_DEADLINE_ERROR }),
-            put({
-                type: actionTypes.UPDATE_NOTIFICATION,
-                payload: notificationTypes.NOTIFICATION_DELETE_DEADLINE_ERROR,
-            }),
-        ]);
+        yield put({ type: actionTypes.DELETE_DEADLINE_ERROR });
     }
 }
 

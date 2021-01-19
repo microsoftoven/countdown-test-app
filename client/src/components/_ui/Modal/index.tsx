@@ -9,14 +9,13 @@ import { CloseButton } from '../../_ui/CloseButton';
 const modalRoot = document.getElementById('modal-root');
 
 interface Props {
-    modalState?: ModalState;
+    // modalState?: ModalState;
 }
 
-const Modal: React.FC<Props> = ({ children, modalState }) => {
+const Modal: React.FC<Props> = ({ children }) => {
     // const [fade, setFade] = useState<boolean>(false);
     const element: Element = document.createElement('div');
     const modalRef = useRef<HTMLDivElement>(null);
-    const dispatch = useDispatch();
 
     const handleEscapeKey = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
@@ -29,33 +28,33 @@ const Modal: React.FC<Props> = ({ children, modalState }) => {
             modalRef.current &&
             !modalRef.current.contains(event.target as Node)
         ) {
-            dispatch({
-                type: actionTypes.UPDATE_MODAL,
-                payload: { show: false },
-            });
+            // dispatch({
+            //     type: actionTypes.UPDATE_MODAL,
+            //     payload: { show: false },
+            // });
         }
     };
 
     const handleClose = () => {
-        dispatch({
-            type: actionTypes.UPDATE_MODAL,
-            payload: { show: false },
-        });
+        // dispatch({
+        //     type: actionTypes.UPDATE_MODAL,
+        //     payload: { show: false },
+        // });
     };
 
-    useEffect(() => {
-        if (modalState?.show) {
-            modalRoot?.appendChild(element);
-            document.addEventListener('keydown', handleEscapeKey, true);
-            document.addEventListener('click', handleClickOutside, true);
+    // useEffect(() => {
+    //     if (modalState?.show) {
+    //         modalRoot?.appendChild(element);
+    //         document.addEventListener('keydown', handleEscapeKey, true);
+    //         document.addEventListener('click', handleClickOutside, true);
 
-            return () => {
-                modalRoot?.removeChild(element);
-                document.removeEventListener('keydown', handleEscapeKey, true);
-                document.removeEventListener('click', handleClickOutside, true);
-            };
-        }
-    }, [modalState]);
+    //         return () => {
+    //             modalRoot?.removeChild(element);
+    //             document.removeEventListener('keydown', handleEscapeKey, true);
+    //             document.removeEventListener('click', handleClickOutside, true);
+    //         };
+    //     }
+    // }, [modalState]);
 
     return createPortal(
         <StyledModalWrapper>
@@ -73,6 +72,6 @@ const Modal: React.FC<Props> = ({ children, modalState }) => {
 
 export default connect((state: RootState) => {
     return {
-        modalState: state.modalState,
+        // modalState: state.modalState,
     };
 })(Modal);

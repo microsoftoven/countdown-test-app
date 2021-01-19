@@ -1,58 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import dayjs from 'dayjs';
 
-import DeadlineEditor from '../_views/DeadlineEditor';
-import Modal from '../_ui/Modal';
-import { Page } from '../_layout/Page';
+import { StyledDisplayDate, StyledDeadlineContent } from './styles';
+
+import DeadlineEditor from '../DeadlineEditor';
+import { PageFlexColumn } from '../_layout/Page';
 import { Title } from '../_ui/Title';
 import { LoadingIndicator } from '../_ui/LoadingIndicator';
 import { Countdown } from '../Countdown';
 import { AddButton } from '../_ui/AddButton';
+import { FadeInSlideUp } from '../_utilities/animations';
 
 interface Props {
     fetchDeadline: (data: IDeadline) => void;
-    updateModal: (data: IModal) => void;
     match: any;
     activeDeadline: DeadlineState;
 }
 
 const Deadline: React.FC<Props> = (props) => {
-    const { activeDeadline, fetchDeadline, updateModal } = props;
+    const { activeDeadline, fetchDeadline } = props;
     const [deadlineID, setDeadlineID] = useState<any>(props.match.params.id);
-    const [deadline, setDeadline] = useState<IDeadline | null>(null);
-
-    const toggleModal = () => {
-        updateModal({ show: true });
-    };
 
     useEffect(() => {
         fetchDeadline({ _id: deadlineID });
     }, [deadlineID, fetchDeadline]);
 
-    useEffect(() => {}, []);
+    if (activeDeadline.deadline.timestamp) {
+        return (
+            <PageFlexColumn>
+                <Title tag='h1'>{activeDeadline.deadline.title}</Title>
 
-    console.log(activeDeadline);
+                <StyledDeadlineContent>
+                    <div>
+                        <FadeInSlideUp animationDelay='.05s'>
+                            <StyledDisplayDate>
+                                {dayjs(
+                                    activeDeadline.deadline.timestamp
+                                ).format('MMMM D, YYYY h:mma')}
+                            </StyledDisplayDate>
+                        </FadeInSlideUp>
 
-    return <Page></Page>;
+                        <FadeInSlideUp animationDelay='.1s'>
+                            <Countdown
+                                date={
+                                    new Date(activeDeadline.deadline.timestamp)
+                                }
+                            />
+                        </FadeInSlideUp>
 
-    // if (deadline !== null) {
-    //     return (
-    //         <Page>
-    //             <Title tag='h1'>{deadline.title}</Title>
-
-    //             <Countdown date={new Date()} />
-
-    //             <AddButton handleClick={toggleModal} />
-
-    //             <Modal>
-    //                 <DeadlineEditor />
-    //             </Modal>
-    //         </Page>
-    //     );
-    // } else {
-    //     return <LoadingIndicator />;
-    // }
+                        <AddButton handleClick={() => {}} />
+                    </div>
+                </StyledDeadlineContent>
+            </PageFlexColumn>
+        );
+    } else {
+        return <LoadingIndicator />;
+    }
 };
 
 export default connect((state: RootState) => {

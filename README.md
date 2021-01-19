@@ -30,8 +30,8 @@ TODO
     [X] form validation
     [X] use same modal, if it already exists adjust actions
 [ ] edit deadline
-[ ] deadline list
-[ ] single deadline
+[X] deadline list
+[X] single deadline
 [ ] countdown complete
 [ ] react drag on deadline card
 [ ] react drag on modal
@@ -39,10 +39,9 @@ TODO
 [ ] add unit tests
 [ ] some sort of neat background animation on router change
 [ ] figure out alias! paths are so messy omg
-[ ] transitions between views
-[ ] classes -- go through and use ctdn__ with BEM
-[ ] avoid nesting in styled components unless necessary
-[ ] loading indicator
+[X] transitions between views
+[X] avoid nesting in styled components unless necessary
+[X] loading indicator
 [ ] memos & callbacks
 [X] back to top on deadline list
 [ ] close modal on state change for deadline success?

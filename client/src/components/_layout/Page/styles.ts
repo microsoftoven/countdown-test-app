@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { fadeInSlideUp } from '../../_utilities/keyframes';
 
 export const StyledPage = styled.div`
     flex-grow: 1;
@@ -19,4 +20,9 @@ export const StyledPageAlignCenter = styled(StyledPage)`
     & > div {
         width: 100%;
     }
+`;
+
+export const StyledPageFlexColumn = styled(StyledPage)`
+    display: flex;
+    flex-direction: column;
 `;

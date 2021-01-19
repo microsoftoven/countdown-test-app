@@ -4,7 +4,7 @@ export const StyledLoadingIndicator = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
+    flex-grow: 1;
 
     &.fullscreen {
         height: 100vh;

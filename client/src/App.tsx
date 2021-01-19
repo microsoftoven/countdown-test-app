@@ -9,10 +9,10 @@ import { AppWrapper } from './components/_layout/AppWrapper';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Header } from './components/_layout/Header';
 import { Footer } from './components/_layout/Footer';
-import { Landing } from './components/_views/Landing';
-import { Logout } from './components/_views/Logout';
+import { Landing } from './components/Landing';
+import { Logout } from './components/Logout';
 import { LoadingIndicator } from './components/_ui/LoadingIndicator';
-import DeadlineList from './components/_views/DeadlineList';
+import DeadlineList from './components/DeadlineList';
 import Deadline from './components/Deadline';
 
 interface State {

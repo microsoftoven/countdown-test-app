@@ -1,6 +1,6 @@
 import React from 'react';
-import { Page } from '../../_layout/Page';
-import { VideoEmbed } from '../../_ui/VideoEmbed';
+import { Page } from '../_layout/Page';
+import { VideoEmbed } from '../_ui/VideoEmbed';
 
 interface Props {}
 

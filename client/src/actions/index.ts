@@ -55,22 +55,3 @@ export function resetDeadline() {
         type: actionTypes.RESET_DEADLINE_STATUS,
     };
 }
-
-export function dismissNotification() {
-    return {
-        type: actionTypes.DISMISS_NOTIFICATION,
-    };
-}
-
-export function updateNotification() {
-    return {
-        type: actionTypes.UPDATE_NOTIFICATION,
-    };
-}
-
-export function updateModal(data: IModal) {
-    return {
-        type: actionTypes.UPDATE_MODAL,
-        payload: data,
-    };
-}

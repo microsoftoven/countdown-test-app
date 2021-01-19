@@ -8,6 +8,7 @@ export const StyledTitle = styled.div`
     text-align: center;
 
     h1 {
+        padding: 20px 0 0;
         margin: 0 0 20px;
 
         @media screen and (min-width: 768px) {
@@ -16,6 +17,7 @@ export const StyledTitle = styled.div`
     }
 
     h2 {
+        padding: 20px 0 0;
         font-size: 40px;
         margin: 20px 0 12px;
     }
@@ -32,9 +34,9 @@ export const StyledTitle = styled.div`
 `;
 
 export const StickyTitle = styled.div`
-    padding: 20px 0 0;
     position: sticky;
     top: 0;
+    z-index: 1;
 
     &::before {
         bottom: 0;
