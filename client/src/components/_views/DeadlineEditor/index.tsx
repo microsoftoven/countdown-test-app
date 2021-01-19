@@ -14,7 +14,7 @@ interface Props {
     resetDeadline: () => void;
     updateModal: (data: IModal) => void;
     user: UserState;
-    activeDeadline: DeadlineState;
+    activeDeadline?: DeadlineState;
     type?: 'add' | 'edit';
 }
 
@@ -126,8 +126,8 @@ const DeadlineEditor: React.FC<Props> = ({
                         text='save'
                         type='submit'
                         buttonStyle='primary'
-                        pending={activeDeadline.pending}
-                        success={activeDeadline.success}
+                        pending={activeDeadline?.pending}
+                        success={activeDeadline?.success}
                     />
                 </StyledModalButtonWrapper>
 
@@ -146,6 +146,6 @@ const DeadlineEditor: React.FC<Props> = ({
 export default connect((state: RootState) => {
     return {
         user: state.user,
-        activeDeadline: state.activeDeadline ? state.activeDeadline : {},
+        activeDeadline: state.activeDeadline,
     };
 }, actions)(DeadlineEditor);

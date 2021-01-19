@@ -7,52 +7,58 @@ import Modal from '../_ui/Modal';
 import { Page } from '../_layout/Page';
 import { Title } from '../_ui/Title';
 import { LoadingIndicator } from '../_ui/LoadingIndicator';
+import { Countdown } from '../Countdown';
+import { AddButton } from '../_ui/AddButton';
 
 interface Props {
     fetchDeadline: (data: IDeadline) => void;
+    updateModal: (data: IModal) => void;
     match: any;
-    activeDeadline?: DeadlineState;
+    activeDeadline: DeadlineState;
 }
 
 const Deadline: React.FC<Props> = (props) => {
-    const { activeDeadline, fetchDeadline } = props;
-    let loading = true;
-
+    const { activeDeadline, fetchDeadline, updateModal } = props;
     const [deadlineID, setDeadlineID] = useState<any>(props.match.params.id);
+    const [deadline, setDeadline] = useState<IDeadline | null>(null);
+
+    const toggleModal = () => {
+        updateModal({ show: true });
+    };
 
     useEffect(() => {
         fetchDeadline({ _id: deadlineID });
     }, [deadlineID, fetchDeadline]);
 
-    return (
-        <Page>
-            <Title tag='h1'>deadlines</Title>
+    useEffect(() => {}, []);
 
-            {/* {!activeDeadline?.success && <LoadingIndicator />} */}
+    console.log(activeDeadline);
 
-            {loading && <LoadingIndicator />}
+    return <Page></Page>;
 
-            {/* <button
-                onClick={() => {
-                    fetchDeadline({ id: deadlineID });
-                }}
-            >
-                fetch deadline
-            </button> */}
+    // if (deadline !== null) {
+    //     return (
+    //         <Page>
+    //             <Title tag='h1'>{deadline.title}</Title>
 
-            {/* {deadlineList && (
-                <StyledDeadlineList>{displayDeadlineList()}</StyledDeadlineList>
-            )} */}
+    //             <Countdown date={new Date()} />
 
-            {/* <AddButton handleClick={toggleModal} /> */}
+    //             <AddButton handleClick={toggleModal} />
 
-            <Modal>{/* <DeadlineEditor /> */}</Modal>
-        </Page>
-    );
+    //             <Modal>
+    //                 <DeadlineEditor />
+    //             </Modal>
+    //         </Page>
+    //     );
+    // } else {
+    //     return <LoadingIndicator />;
+    // }
 };
 
 export default connect((state: RootState) => {
     return {
-        activeDeadline: state.activeDeadline,
+        activeDeadline: state.activeDeadline
+            ? state.activeDeadline
+            : { success: false, pending: false, deadline: {} },
     };
 }, actions)(Deadline);

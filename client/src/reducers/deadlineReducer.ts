@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/types';
 const initialState: DeadlineState = {
     pending: false,
     success: false,
+    deadline: {},
 };
 
 export const deadlineReducer = (state = initialState, action: ActionTypes) => {

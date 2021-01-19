@@ -105,6 +105,7 @@ export async function updateDeadlineAPI(data: IDeadline) {
 export function* updateDeadline(action: any) {
     try {
         const result = yield call(updateDeadlineAPI, action.payload);
+
         yield all([
             put({
                 type: actionTypes.UPDATE_DEADLINE_SUCCESS,

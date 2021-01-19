@@ -6,7 +6,7 @@ interface IDeadline {
 }
 
 type DeadlineState = {
-    success?: boolean;
-    pending?: boolean;
-    deadline?: IDeadline;
+    success: boolean;
+    pending: boolean;
+    deadline: IDeadline;
 };

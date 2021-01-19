@@ -21,13 +21,11 @@ const DeadlineList: React.FC<Props> = ({
     deadlineList,
     updateModal,
 }) => {
-    const [showModal, setShowModal] = useState<boolean>(false);
     const [listPage, setListPage] = useState<number>(1);
 
     const dispatch = useDispatch();
 
     const toggleModal = () => {
-        setShowModal(true);
         updateModal({ show: true });
     };
 
