@@ -53,10 +53,9 @@ export function* addDeadline(action: any) {
         const result = yield call(addDeadlineAPI, action.payload);
 
         yield delay(500);
+
         if (action.payload.redirectOnSave !== null) {
             const redirectURL = `/deadline/${result.deadline._id}`;
-
-            console.log(redirectURL);
 
             yield put({
                 type: actionTypes.ADD_DEADLINE_SUCCESS,
@@ -125,7 +124,13 @@ export function* updateDeadline(action: any) {
 }
 
 export async function deleteDeadlineAPI(data: IDeadline) {
-    const result = fetch(`/api/deadlines/${data._id}`, { method: 'DELETE' })
+    const result = await fetch(`/api/deadlines/${data._id}`, {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -139,14 +144,18 @@ export async function deleteDeadlineAPI(data: IDeadline) {
 
 export function* deleteDeadline(action: any) {
     try {
-        yield call(deleteDeadlineAPI, action.payload);
+        const result = yield call(deleteDeadlineAPI, action.payload);
 
-        yield all([
-            put({
-                type: actionTypes.DELETE_DEADLINE_SUCCESS,
-            }),
-            put({ type: actionTypes.FETCH_DEADLINE_LIST }),
-        ]);
+        yield delay(500);
+        yield put({
+            type: actionTypes.DELETE_DEADLINE_SUCCESS,
+            payload: {
+                ...result,
+                redirectOnSave: '/deadlines/',
+            },
+        });
+        yield delay(1000);
+        yield put({ type: actionTypes.FETCH_DEADLINE_LIST });
     } catch (error) {
         yield put({ type: actionTypes.DELETE_DEADLINE_ERROR });
     }

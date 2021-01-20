@@ -44,8 +44,6 @@ module.exports = (app) => {
 
     // update a single deadline by ID
     app.put('/api/deadlines/:deadlineID', requireLogin, async (req, res) => {
-        console.log(req.body);
-        console.log(req.params.deadlineID);
         try {
             const deadline = await Deadline.findByIdAndUpdate(
                 req.params.deadlineID,
@@ -55,7 +53,6 @@ module.exports = (app) => {
 
             res.status(201).json({ deadline });
         } catch (error) {
-            console.log(error);
             return error;
         }
     });
@@ -67,7 +64,7 @@ module.exports = (app) => {
                 req.params.deadlineID
             );
 
-            res.status(204).json({});
+            res.status(201).json({ deadline });
         } catch (error) {
             return error;
         }

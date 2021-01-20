@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { StyledButton } from './styles';
 import loadingButton from '../../../assets/images/button-loading.svg';
@@ -13,6 +13,7 @@ interface Props {
     type?: 'button' | 'submit' | 'reset' | undefined;
     pending?: boolean;
     success?: boolean;
+    successText?: string;
 }
 
 export const Button: React.FC<Props> = ({
@@ -24,11 +25,12 @@ export const Button: React.FC<Props> = ({
     type = 'button',
     pending = false,
     success = false,
+    successText = 'Saved!',
 }) => {
     const buttonContent = pending ? (
         <ReactSVG src={loadingButton} />
     ) : success ? (
-        'Saved!'
+        successText
     ) : (
         text
     );
@@ -37,10 +39,12 @@ export const Button: React.FC<Props> = ({
         <StyledButton
             className={classNames(className, buttonStyle, {
                 pending: pending,
-                success: success,
+                success: pending,
             })}
             onClick={(e) => {
-                if (!disabled && handleClick) handleClick(e);
+                if (!disabled && handleClick) {
+                    handleClick(e);
+                }
             }}
             type={type}
         >

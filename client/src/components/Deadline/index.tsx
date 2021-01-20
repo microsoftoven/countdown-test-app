@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import * as actions from '../../actions';
+import { Link, Redirect } from 'react-router-dom';
 import dayjs from 'dayjs';
+import * as actions from '../../actions';
 
 import {
     StyledDisplayDate,
@@ -15,7 +15,7 @@ import { Title } from '../_ui/Title';
 import { LoadingIndicator } from '../_ui/LoadingIndicator';
 import { Countdown } from '../Countdown';
 import { AddButton } from '../_ui/AddButton';
-import { FadeInSlideUp } from '../_utilities/animations';
+import { FadeInSlideUp, FadeIn } from '../_utilities/animations';
 import { EditButton } from '../_ui/EditButton';
 
 interface Props {
@@ -41,20 +41,22 @@ const Deadline: React.FC<Props> = (props) => {
         fetchDeadline({ _id: match.params.id });
     }, [match, fetchDeadline]);
 
-    if (activeDeadline.deadline.timestamp) {
+    if (activeDeadline.deadline?.timestamp) {
         return (
             <PageFlexColumn>
-                <Title tag='h1' className='ctdn__ctdn-title'>
-                    {activeDeadline.deadline.title}
+                <FadeIn animationDelay='.075s'>
+                    <Title tag='h1' className='ctdn__ctdn-title'>
+                        {activeDeadline.deadline.title}
 
-                    <StyledDeadlineEditButton>
-                        <EditButton link={`${editorPath}edit`} />
-                    </StyledDeadlineEditButton>
-                </Title>
+                        <StyledDeadlineEditButton>
+                            <EditButton link={`${editorPath}edit`} />
+                        </StyledDeadlineEditButton>
+                    </Title>
+                </FadeIn>
 
                 <StyledDeadlineContent>
                     <div>
-                        <FadeInSlideUp animationDelay='.05s'>
+                        <FadeInSlideUp animationDelay='.1s'>
                             <StyledDisplayDate>
                                 {dayjs(
                                     activeDeadline.deadline.timestamp
@@ -62,7 +64,7 @@ const Deadline: React.FC<Props> = (props) => {
                             </StyledDisplayDate>
                         </FadeInSlideUp>
 
-                        <FadeInSlideUp animationDelay='.1s'>
+                        <FadeInSlideUp animationDelay='.15s'>
                             <Countdown
                                 date={
                                     new Date(activeDeadline.deadline.timestamp)

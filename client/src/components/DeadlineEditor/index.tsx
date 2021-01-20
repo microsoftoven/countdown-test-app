@@ -19,6 +19,7 @@ interface Props {
     resetDeadline: () => void;
     fetchDeadline: (data: IDeadline) => void;
     updateDeadline: (data: IDeadline) => void;
+    deleteDeadline: (data: IDeadline) => void;
     user: UserState;
     activeDeadline?: DeadlineState;
     action: 'add' | 'edit';
@@ -33,6 +34,7 @@ const DeadlineEditor: React.FC<Props> = (props) => {
         resetDeadline,
         fetchDeadline,
         updateDeadline,
+        deleteDeadline,
     } = props;
 
     const [deadlineID, setDeadlineID] = useState<string>('');
@@ -40,6 +42,7 @@ const DeadlineEditor: React.FC<Props> = (props) => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState<boolean>(true);
     const [redirect, setRedirect] = useState<string | null>(null);
+    const [buttonAction, setButtonAction] = useState<string>('save');
 
     const [title, setTitle] = useState<string>('');
     const [datetime, setDatetime] = useState<string>(new Date().toISOString());
@@ -55,6 +58,7 @@ const DeadlineEditor: React.FC<Props> = (props) => {
         setTitleError(false);
         setDateError(false);
         setEditMode(false);
+        setRedirect(null);
         resetDeadline();
     }, [resetDeadline]);
 
@@ -81,7 +85,7 @@ const DeadlineEditor: React.FC<Props> = (props) => {
             setEditMode(true);
             fetchDeadline({ _id: deadlineID });
         }
-    }, [props.match.params]);
+    }, [props.match.params, fetchDeadline, deadlineID]);
 
     useEffect(() => {
         if (editMode && activeDeadline?.deadline) {
@@ -102,13 +106,6 @@ const DeadlineEditor: React.FC<Props> = (props) => {
     }, [datetime, currentDatetime]);
 
     useEffect(() => {
-        // if (
-        //     activeDeadline?.redirectOnSave &&
-        //     activeDeadline?.redirectOnSave !== deadlineID
-        // ) {
-        //     setRedirect(activeDeadline.redirectOnSave);
-        // } else if
-
         if (activeDeadline?.success) {
             setTimeout(() => {
                 handleClose();
@@ -131,6 +128,8 @@ const DeadlineEditor: React.FC<Props> = (props) => {
                     if (titleError || title === '' || dateError || !user._id) {
                         return;
                     }
+
+                    setButtonAction('save');
 
                     let payload: IDeadline = {
                         userID: user._id,
@@ -195,8 +194,23 @@ const DeadlineEditor: React.FC<Props> = (props) => {
                             type='button'
                             buttonStyle='danger'
                             handleClick={(e) => {
-                                console.log('delete me!');
+                                e.preventDefault();
+
+                                setButtonAction('delete');
+
+                                deleteDeadline({ _id: deadlineID });
                             }}
+                            successText='Deleted!'
+                            pending={
+                                buttonAction === 'delete'
+                                    ? activeDeadline?.pending
+                                    : false
+                            }
+                            success={
+                                buttonAction === 'delete'
+                                    ? activeDeadline?.success
+                                    : false
+                            }
                         />
                     )}
 
@@ -215,8 +229,16 @@ const DeadlineEditor: React.FC<Props> = (props) => {
                         text='save'
                         type='submit'
                         buttonStyle='primary'
-                        pending={activeDeadline?.pending}
-                        success={activeDeadline?.success}
+                        pending={
+                            buttonAction === 'save'
+                                ? activeDeadline?.pending
+                                : false
+                        }
+                        success={
+                            buttonAction === 'save'
+                                ? activeDeadline?.success
+                                : false
+                        }
                     />
                 </StyledModalButtonWrapper>
             </form>

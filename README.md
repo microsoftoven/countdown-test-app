@@ -22,16 +22,11 @@ TODO
 
 
 
-[ ] react drag on deadline card
-[ ] react drag on modal
-[ ] alphabetize styles
 [ ] add unit tests
 [ ] figure out alias! paths are so messy omg
-[ ] memos & callbacks
 [ ] what do I do with past deadlines? maybe show a checkmark or something, or click a button to view past deadlines
-[ ] handle errors
-[ ] delete deadline & redirect from single view
-[ ] no deadline message on single/archive
+[ ] no deadline message on single/ does not exist message
+[ ] fetch loading status
 
 IF TIME
 [ ] shorturl
