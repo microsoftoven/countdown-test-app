@@ -16,14 +16,14 @@ module.exports = (app) => {
         '/auth/google/callback',
         passport.authenticate('google'),
         (req, res) => {
-            res.redirect('/deadlines');
+            res.redirect('/deadlines/');
         }
     );
 
     app.get('/api/logout', (req, res) => {
         req.logout();
         req.session = null;
-        res.redirect('/logged-out');
+        res.redirect('/logged-out/');
         res.send();
     });
 

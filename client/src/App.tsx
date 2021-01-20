@@ -1,17 +1,18 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import { ThemeProvider } from 'styled-components';
 import 'normalize.css';
 
 import { AppWrapper } from './components/_layout/AppWrapper';
-import { PrivateRoute } from './components/PrivateRoute';
+import { PrivateRoutes } from './components/PrivateRoutes';
 import { Header } from './components/_layout/Header';
 import { Footer } from './components/_layout/Footer';
 import { Landing } from './components/Landing';
 import { Logout } from './components/Logout';
 import { LoadingIndicator } from './components/_ui/LoadingIndicator';
+import DeadlineEditor from './components/DeadlineEditor';
 import DeadlineList from './components/DeadlineList';
 import Deadline from './components/Deadline';
 
@@ -43,24 +44,40 @@ class App extends React.Component<Props, State> {
                         <BrowserRouter>
                             <Header user={this.props.user} />
 
-                            <Switch>
-                                <Route exact path='/' component={Landing} />
-                                <Route path='/logged-out' component={Logout} />
-                                <PrivateRoute
-                                    exact
+                            <Route exact path='/' component={Landing} />
+                            <Route path='/logged-out' component={Logout} />
+
+                            <PrivateRoutes
+                                redirectTo='/'
+                                user={this.props.user}
+                            >
+                                <Route
                                     path='/deadlines'
                                     component={DeadlineList}
-                                    user={this.props.user}
-                                    redirectTo='/'
                                 />
+
                                 <Route
-                                    path='/deadlines/:id'
+                                    path='/deadlines/add'
+                                    component={DeadlineEditor}
+                                />
+
+                                <Route
+                                    path='/deadlines/:id/:action'
+                                    component={DeadlineEditor}
+                                />
+
+                                <Route
+                                    path='/deadline/:id/:action'
+                                    component={DeadlineEditor}
+                                />
+
+                                <Route
+                                    path='/deadline/:id'
                                     component={Deadline}
                                     user={this.props.user}
                                     redirectTo='/'
                                 />
-                            </Switch>
-
+                            </PrivateRoutes>
                             <Footer />
                         </BrowserRouter>
                     </AppWrapper>

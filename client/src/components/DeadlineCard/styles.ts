@@ -5,17 +5,26 @@ export const StyledDeadlineCard = styled.li`
     border-radius: 16px;
     border: 1px solid
         ${(props) => props.theme.global?.primary_border_color || '#eeeeee'};
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
     list-style-type: none;
     margin: 0 0 30px;
-    padding: 15px;
+    transition: box-shadow 0.15s ease-in-out;
 
-    @media screen and (min-width: 768px) {
-        padding: 20px;
+    &:hover {
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
     }
 
     a {
+        display: block;
+        flex-grow: 1;
+        padding: 15px;
         text-decoration: none;
+
+        @media screen and (min-width: 768px) {
+            padding: 20px;
+        }
     }
 `;
 
@@ -30,4 +39,24 @@ export const StyledDeadlineDate = styled.div`
 export const StyledDeadlineTitle = styled(StyledDeadlineDate)`
     color: ${(props) => props.theme.text?.primary_text_color || '#222222'};
     margin: 0;
+`;
+
+export const StyledDeadlineCardEditButton = styled.div`
+    a,
+    button {
+        height: 100%;
+    }
+
+    a {
+        display: flex;
+        align-items: flex-end;
+
+        @media screen and (min-width: 375px) {
+            align-items: center;
+        }
+
+        @media screen and (min-width: 768px) {
+            padding: 30px;
+        }
+    }
 `;

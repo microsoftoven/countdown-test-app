@@ -1,17 +1,9 @@
 import styled from 'styled-components';
-import {
-    fadeIn,
-    fadeOut,
-    slideUp,
-    slideDown,
-} from '../../_utilities/keyframes';
 
 export const StyledModalWrapper = styled.div`
     display: flex;
     align-items: flex-end;
     justify-content: center;
-
-    animation: ${fadeIn} 0.2s ease-in-out forwards;
     background-color: rgba(240, 240, 240, 0.74);
     backdrop-filter: blur(10px);
     bottom: 0;
@@ -21,6 +13,7 @@ export const StyledModalWrapper = styled.div`
     position: fixed;
     right: 0;
     top: 0;
+    transition: opacity 0.15s ease-in-out;
     z-index: 10;
 
     @media screen and (min-width: 768px) {
@@ -29,17 +22,18 @@ export const StyledModalWrapper = styled.div`
     }
 
     & > div {
-        animation: ${slideUp} 0.2s ease-in-out forwards;
         max-width: 600px;
         position: relative;
+        transform: translateY(5px);
+        transition: transform 0.15s ease-in-out;
         width: 100%;
     }
 
-    &.fadeModal {
-        animation: ${fadeOut} 0.1s ease-in-out forwards;
+    &.visible {
+        opacity: 1;
 
         & > div {
-            animation: ${slideDown} 0.1s ease-in-out forwards;
+            transform: translateY(0);
         }
     }
 

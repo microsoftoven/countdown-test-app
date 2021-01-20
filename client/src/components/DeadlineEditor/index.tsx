@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+import { Modal } from '../_ui/Modal';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { InputWrapper } from '../_ui/InputWrapper';
+import { Redirect } from 'react-router-dom';
 import { Title } from '../_ui/Title';
 import { Button } from '../_ui/Button';
 import { StyledModalButtonWrapper } from '../_ui/Modal/styles';
@@ -12,21 +14,22 @@ interface Props {
     onCancel?: () => void;
     addDeadline: (data: IDeadline) => void;
     resetDeadline: () => void;
-    // updateModal: (data: IModal) => void;
     user: UserState;
     activeDeadline?: DeadlineState;
-    type?: 'add' | 'edit';
+    action: 'add' | 'edit';
+    match: any;
 }
 
-const DeadlineEditor: React.FC<Props> = ({
-    onCancel,
-    addDeadline,
-    resetDeadline,
-    activeDeadline,
-    user,
-    // updateModal,
-}) => {
-    const [title, setTitle] = useState<string | undefined>(undefined);
+const DeadlineEditor: React.FC<Props> = (props) => {
+    const { addDeadline, activeDeadline, user, resetDeadline } = props;
+
+    const action = props.match.params.action
+        ? props.match.params.action
+        : 'add';
+
+    const [modalVisible, setModalVisible] = useState<boolean>(true);
+    const [redirect, setRedirect] = useState<string | null>(null);
+    const [title, setTitle] = useState<string>('');
     const [datetime, setDatetime] = useState<string>(new Date().toISOString());
     const [currentDatetime, setCurrentDatetime] = useState<string>(
         new Date().toISOString()
@@ -35,42 +38,51 @@ const DeadlineEditor: React.FC<Props> = ({
     const [dateError, setDateError] = useState<boolean>(false);
 
     useEffect(() => {
-        title === '' ? setTitleError(true) : setTitleError(false);
-    }, [title]);
-
-    useEffect(() => {
         datetime === '' || datetime < currentDatetime
             ? setDateError(true)
             : setDateError(false);
     }, [datetime, currentDatetime]);
 
     useEffect(() => {
-        clearState();
-
-        return () => {
-            // console.log('clearing deadline modal');
+        if (activeDeadline?.success) {
             setTimeout(() => {
-                resetDeadline();
-            }, 150);
-        };
-    }, [resetDeadline]);
+                handleClose();
+            }, 2000);
+        }
+    }, [activeDeadline]);
 
-    const clearState = () => {
-        setTitle(undefined);
+    const handleClose = () => {
+        let destination = window.location.pathname.replace(action, '');
+
+        setModalVisible(false);
+
+        setTimeout(() => {
+            runCleanup();
+            setRedirect(destination);
+        }, 150);
+    };
+
+    const runCleanup = () => {
+        setTitle('');
         setDatetime(new Date().toISOString());
         setTitleError(false);
         setDateError(false);
+        resetDeadline();
     };
 
+    if (redirect) {
+        return <Redirect push to={redirect} />;
+    }
+
     return (
-        <div>
+        <Modal onClose={handleClose} isVisible={modalVisible}>
             <Title tag='h3'>new deadline</Title>
 
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
 
-                    if (!titleError && !dateError && user._id) {
+                    if (!titleError && title !== '' && !dateError && user._id) {
                         let payload: IDeadline = {
                             userID: user._id,
                             title: title,
@@ -92,7 +104,11 @@ const DeadlineEditor: React.FC<Props> = ({
                         type='text'
                         name='title'
                         required
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+
+                            setTitleError(e.target.value === '' ? true : false);
+                        }}
                     />
                 </InputWrapper>
 
@@ -106,8 +122,12 @@ const DeadlineEditor: React.FC<Props> = ({
                         defaultValue={currentDatetime}
                         timeIsEditable
                         onChange={(value) => {
-                            setCurrentDatetime(new Date().toISOString());
-                            setDatetime(new Date(value).toISOString());
+                            try {
+                                setCurrentDatetime(new Date().toISOString());
+                                setDatetime(new Date(value).toISOString());
+                            } catch (e) {
+                                console.log(e);
+                            }
                         }}
                     />
                 </InputWrapper>
@@ -118,7 +138,7 @@ const DeadlineEditor: React.FC<Props> = ({
                         type='button'
                         buttonStyle='secondary'
                         handleClick={(e) => {
-                            // updateModal({ show: false });
+                            handleClose();
                         }}
                     />
 
@@ -139,7 +159,7 @@ const DeadlineEditor: React.FC<Props> = ({
                     }}
                 /> */}
             </form>
-        </div>
+        </Modal>
     );
 };
 

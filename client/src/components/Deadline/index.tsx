@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
 import dayjs from 'dayjs';
 
-import { StyledDisplayDate, StyledDeadlineContent } from './styles';
+import {
+    StyledDisplayDate,
+    StyledDeadlineContent,
+    StyledDeadlineEditButton,
+} from './styles';
 
-import DeadlineEditor from '../DeadlineEditor';
 import { PageFlexColumn } from '../_layout/Page';
 import { Title } from '../_ui/Title';
 import { LoadingIndicator } from '../_ui/LoadingIndicator';
 import { Countdown } from '../Countdown';
 import { AddButton } from '../_ui/AddButton';
 import { FadeInSlideUp } from '../_utilities/animations';
+import { EditButton } from '../_ui/EditButton';
 
 interface Props {
     fetchDeadline: (data: IDeadline) => void;
@@ -20,17 +25,32 @@ interface Props {
 }
 
 const Deadline: React.FC<Props> = (props) => {
-    const { activeDeadline, fetchDeadline } = props;
-    const [deadlineID, setDeadlineID] = useState<any>(props.match.params.id);
+    const { activeDeadline, fetchDeadline, match } = props;
+
+    const [editorPath, setEditorPath] = useState<string>(
+        window.location.pathname
+    );
 
     useEffect(() => {
-        fetchDeadline({ _id: deadlineID });
-    }, [deadlineID, fetchDeadline]);
+        let url = editorPath.substr(-1) === '/' ? editorPath : editorPath + '/';
+
+        setEditorPath(url);
+    }, [editorPath]);
+
+    useEffect(() => {
+        fetchDeadline({ _id: match.params.id });
+    }, [match, fetchDeadline]);
 
     if (activeDeadline.deadline.timestamp) {
         return (
             <PageFlexColumn>
-                <Title tag='h1'>{activeDeadline.deadline.title}</Title>
+                <Title tag='h1' className='ctdn__ctdn-title'>
+                    {activeDeadline.deadline.title}
+
+                    <StyledDeadlineEditButton>
+                        <EditButton link={`${editorPath}edit`} />
+                    </StyledDeadlineEditButton>
+                </Title>
 
                 <StyledDeadlineContent>
                     <div>
@@ -50,7 +70,9 @@ const Deadline: React.FC<Props> = (props) => {
                             />
                         </FadeInSlideUp>
 
-                        <AddButton handleClick={() => {}} />
+                        <Link to={`${editorPath}add`}>
+                            <AddButton />
+                        </Link>
                     </div>
                 </StyledDeadlineContent>
             </PageFlexColumn>

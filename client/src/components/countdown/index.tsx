@@ -4,11 +4,16 @@ import dayjs from 'dayjs';
 import {
     StyledCountdownWrapper,
     StyledCountdown,
+    StyledCountdownComplete,
+    StyledCountdownCompleteMessage,
     StyledCountdownRow,
     StyledCountdownItem,
     StyledNumber,
     StyledDuration,
 } from './styles';
+
+import { Checkmark } from '../_ui/Checkmark';
+import { FadeInSlideUp } from '../_utilities/animations';
 
 const _chunk = require('lodash/chunk');
 const duration = require('dayjs/plugin/duration');
@@ -70,7 +75,8 @@ export const Countdown: React.FC<Props> = ({ date }) => {
         for (let key in remainingTime) {
             const count: any = remainingTime[key];
             let displayKey: string = key;
-            let classes: string = key !== 'seconds' && count == 0 ? 'hide' : '';
+            let classes: string =
+                key !== 'seconds' && count === 0 ? 'hide' : '';
 
             if (key === 'milliseconds') continue;
 
@@ -94,22 +100,39 @@ export const Countdown: React.FC<Props> = ({ date }) => {
         return result;
     };
 
-    let displayTime: Array<Array<Object>> = _chunk(setupTimeDisplay(), 3);
-    let displaySections = displayTime.map((section, i) => {
+    if (countdownComplete) {
         return (
-            <StyledCountdownRow key={`displaySection-${i}`}>
-                {section}
-            </StyledCountdownRow>
-        );
-    });
+            <StyledCountdownWrapper>
+                <StyledCountdownComplete>
+                    <Checkmark />
+                </StyledCountdownComplete>
 
-    return (
-        <StyledCountdownWrapper>
-            <div style={{ display: 'inline-block' }}>
-                {displaySections.length > 0 && (
-                    <StyledCountdown>{displaySections}</StyledCountdown>
-                )}
-            </div>
-        </StyledCountdownWrapper>
-    );
+                <FadeInSlideUp animationDelay='.2s'>
+                    <StyledCountdownCompleteMessage>
+                        Countdown Complete!
+                    </StyledCountdownCompleteMessage>
+                </FadeInSlideUp>
+            </StyledCountdownWrapper>
+        );
+    } else {
+        let displayTime: Array<Array<Object>> = _chunk(setupTimeDisplay(), 3);
+
+        let displaySections = displayTime.map((section, i) => {
+            return (
+                <StyledCountdownRow key={`displaySection-${i}`}>
+                    {section}
+                </StyledCountdownRow>
+            );
+        });
+
+        return (
+            <StyledCountdownWrapper>
+                <div style={{ display: 'inline-block' }}>
+                    {displaySections.length > 0 && (
+                        <StyledCountdown>{displaySections}</StyledCountdown>
+                    )}
+                </div>
+            </StyledCountdownWrapper>
+        );
+    }
 };

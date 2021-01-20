@@ -14,8 +14,13 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
         case actionTypes.DELETE_DEADLINE:
         case actionTypes.DELETE_DEADLINE_SUCCESS:
         case actionTypes.DELETE_DEADLINE_ERROR:
-            return state;
         case actionTypes.FETCH_DEADLINE:
+            return state;
+        case actionTypes.FETCH_DEADLINE_SUCCESS:
+            return {
+                ...state,
+                ...action.payload,
+            };
         case actionTypes.ADD_DEADLINE:
         case actionTypes.UPDATE_DEADLINE:
             return {
@@ -23,7 +28,6 @@ export const deadlineReducer = (state = initialState, action: ActionTypes) => {
                 pending: true,
                 success: false,
             };
-        case actionTypes.FETCH_DEADLINE_SUCCESS:
         case actionTypes.ADD_DEADLINE_SUCCESS:
         case actionTypes.UPDATE_DEADLINE_SUCCESS:
             return {

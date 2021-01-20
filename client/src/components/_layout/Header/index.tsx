@@ -39,10 +39,10 @@ export const Header: React.FC<Props> = ({ user }) => {
             default:
                 return [
                     <StyledMenuItem key='header-1'>
-                        <Link to='/deadlines'>deadlines</Link>
+                        <Link to='/deadlines/'>deadlines</Link>
                     </StyledMenuItem>,
                     <StyledMenuItem key='header-2'>
-                        <a href='/api/logout'>logout</a>
+                        <a href='/api/logout/'>logout</a>
                     </StyledMenuItem>,
                 ];
         }

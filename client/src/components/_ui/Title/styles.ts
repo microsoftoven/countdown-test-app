@@ -5,14 +5,24 @@ export const StyledTitle = styled.div`
         ${(props) => props.theme.global?.primary_border_color || '#cccccc'};
     color: ${(props) => props.theme.global?.primary_text_color || '#222222'};
     margin: 0 0 30px;
+    position: relative;
     text-align: center;
 
+    &.ctdn__ctdn-title {
+        margin: 0 0 50px;
+
+        @media screen and (min-width: 768px) {
+            margin: 0 0 30px;
+        }
+    }
+
     h1 {
+        font-size: 30px;
         padding: 20px 0 0;
         margin: 0 0 20px;
 
         @media screen and (min-width: 768px) {
-            font-size: 50px;
+            font-size: 45px;
         }
     }
 

@@ -13,11 +13,22 @@ export const StyledCountdown = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-width: 240px;
 
     @media screen and (min-width: 768px) {
         flex-direction: row;
+        min-width: 0px;
         padding: 20px;
     }
+`;
+
+export const StyledCountdownComplete = styled(StyledCountdown)`
+    align-items: center;
+    height: 75px;
+    justify-content: center;
+    margin: 0 auto;
+    min-width: 0;
+    width: 75px;
 `;
 
 export const StyledCountdownItem = styled.div`
@@ -56,7 +67,12 @@ export const StyledDuration = styled.span`
     }
 `;
 
-// TODO:
-export const StyledCountdownDone = styled.div`
-    color: green;
+export const StyledCountdownCompleteMessage = styled.p`
+    color: #49c02b;
+    font-size: 20px;
+    font-weight: 700;
+
+    @media screen and (min-width: 768px) {
+        font-size: 25px;
+    }
 `;

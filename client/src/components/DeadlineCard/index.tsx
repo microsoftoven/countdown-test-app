@@ -6,7 +6,10 @@ import {
     StyledDeadlineCard,
     StyledDeadlineDate,
     StyledDeadlineTitle,
+    StyledDeadlineCardEditButton,
 } from './styles';
+
+import { EditButton } from '../_ui/EditButton';
 
 interface Props extends IDeadline {}
 
@@ -19,11 +22,15 @@ export const DeadlineCard: React.FC<Props> = ({
     let date = dayjs(timestamp).format('MMMM D, YYYY h:mma');
     return (
         <StyledDeadlineCard>
-            <Link to={`/deadlines/${_id}`}>
+            <Link to={`/deadline/${_id}`}>
                 <StyledDeadlineDate>{date}</StyledDeadlineDate>
 
                 <StyledDeadlineTitle>{title}</StyledDeadlineTitle>
             </Link>
+
+            <StyledDeadlineCardEditButton>
+                <EditButton link={`/deadlines/${_id}/edit`} />
+            </StyledDeadlineCardEditButton>
         </StyledDeadlineCard>
     );
 };

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
 
 import { StyledDeadlineList } from './styles';
-import DeadlineEditor from '../DeadlineEditor';
-import Modal from '../_ui/Modal';
 import { Page } from '../_layout/Page';
 import { AddButton } from '../_ui/AddButton';
 import { Title } from '../_ui/Title';
@@ -17,21 +16,9 @@ interface Props {
 }
 
 const DeadlineList: React.FC<Props> = ({ fetchDeadlineList, deadlineList }) => {
-    const [listPage, setListPage] = useState<number>(1);
-
     useEffect(() => {
         fetchDeadlineList();
-
-        // do pagination
-
-        return () => {
-            // do cleanup
-        };
     }, []);
-
-    useEffect(() => {
-        // fetch paged deadlines
-    }, [listPage]);
 
     let deadlines: Array<Object> = [];
 
@@ -68,11 +55,9 @@ const DeadlineList: React.FC<Props> = ({ fetchDeadlineList, deadlineList }) => {
                 <StyledDeadlineList>{deadlines}</StyledDeadlineList>
             )}
 
-            <AddButton handleClick={() => {}} />
-
-            <Modal>
-                <DeadlineEditor />
-            </Modal>
+            <Link to='/deadlines/add'>
+                <AddButton />
+            </Link>
         </Page>
     );
 };

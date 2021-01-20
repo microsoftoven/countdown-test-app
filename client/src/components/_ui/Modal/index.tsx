@@ -1,20 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { createPortal } from 'react-dom';
+import React, { useRef, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { StyledModalWrapper, StyledModal } from './styles';
-import * as actionTypes from '../../../actions/types';
 
 import { CloseButton } from '../../_ui/CloseButton';
 
-const modalRoot = document.getElementById('modal-root');
-
 interface Props {
-    // modalState?: ModalState;
+    onClose?: () => void;
+    isVisible: boolean;
 }
 
-const Modal: React.FC<Props> = ({ children }) => {
-    // const [fade, setFade] = useState<boolean>(false);
-    const element: Element = document.createElement('div');
+export const Modal: React.FC<Props> = ({ children, onClose, isVisible }) => {
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -28,36 +24,38 @@ const Modal: React.FC<Props> = ({ children }) => {
             modalRef.current &&
             !modalRef.current.contains(event.target as Node)
         ) {
-            // dispatch({
-            //     type: actionTypes.UPDATE_MODAL,
-            //     payload: { show: false },
-            // });
+            handleClose();
         }
     };
 
     const handleClose = () => {
-        // dispatch({
-        //     type: actionTypes.UPDATE_MODAL,
-        //     payload: { show: false },
-        // });
+        setModalVisible(false);
+
+        if (onClose) {
+            onClose();
+        }
     };
 
-    // useEffect(() => {
-    //     if (modalState?.show) {
-    //         modalRoot?.appendChild(element);
-    //         document.addEventListener('keydown', handleEscapeKey, true);
-    //         document.addEventListener('click', handleClickOutside, true);
+    useEffect(() => {
+        setModalVisible(isVisible);
+    }, [isVisible]);
 
-    //         return () => {
-    //             modalRoot?.removeChild(element);
-    //             document.removeEventListener('keydown', handleEscapeKey, true);
-    //             document.removeEventListener('click', handleClickOutside, true);
-    //         };
-    //     }
-    // }, [modalState]);
+    useEffect(() => {
+        document.addEventListener('keydown', handleEscapeKey, true);
+        document.addEventListener('click', handleClickOutside, true);
 
-    return createPortal(
-        <StyledModalWrapper>
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey, true);
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
+
+    return (
+        <StyledModalWrapper
+            className={classNames({
+                visible: modalVisible,
+            })}
+        >
             <div>
                 <CloseButton handleClick={handleClose} />
 
@@ -65,13 +63,6 @@ const Modal: React.FC<Props> = ({ children }) => {
                     <StyledModal>{children}</StyledModal>
                 </div>
             </div>
-        </StyledModalWrapper>,
-        element
+        </StyledModalWrapper>
     );
 };
-
-export default connect((state: RootState) => {
-    return {
-        // modalState: state.modalState,
-    };
-})(Modal);

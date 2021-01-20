@@ -32,21 +32,20 @@ TODO
 [ ] edit deadline
 [X] deadline list
 [X] single deadline
-[ ] countdown complete
+[X] countdown complete
 [ ] react drag on deadline card
 [ ] react drag on modal
 [ ] alphabetize styles
 [ ] add unit tests
-[ ] some sort of neat background animation on router change
+[X] some sort of neat background animation on router change
 [ ] figure out alias! paths are so messy omg
 [X] transitions between views
 [X] avoid nesting in styled components unless necessary
 [X] loading indicator
 [ ] memos & callbacks
 [X] back to top on deadline list
-[ ] close modal on state change for deadline success?
-[ ] move UI actions into UI state like modal and notifications
-[ ] modal transition
+[X] close modal on state change for deadline success?
+[X] modal transition
 [ ] what do I do with past deadlines? maybe show a checkmark or something, or click a button to view past deadlines
 [ ] handle errors
 

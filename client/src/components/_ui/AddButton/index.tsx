@@ -5,14 +5,16 @@ import { StyledAddButton } from './styles';
 import addButton from '../../../assets/images/button-add.svg';
 
 interface Props {
-    handleClick: (e?: React.ChangeEvent<HTMLInputElement> | any) => void;
+    handleClick?: (e?: React.ChangeEvent<HTMLInputElement> | any) => void;
 }
 
 export const AddButton: React.FC<Props> = ({ handleClick }) => {
     return (
         <StyledAddButton
             onClick={(e) => {
-                handleClick(e);
+                if (handleClick) {
+                    handleClick(e);
+                }
             }}
         >
             <ReactSVG src={addButton} />
