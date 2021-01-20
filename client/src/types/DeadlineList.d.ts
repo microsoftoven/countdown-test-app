@@ -1,5 +1,11 @@
 interface IDeadlineList {
     deadlines?: IDeadline[];
+    pending: boolean;
+    success: boolean;
 }
 
-type DeadlineListState = {};
+type DeadlineListState = {
+    pending: boolean;
+    success: boolean;
+    deadlines: IDeadline[];
+};

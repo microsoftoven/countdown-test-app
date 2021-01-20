@@ -9,7 +9,6 @@ TODO
 
 [ ] add unit tests
 [ ] figure out alias! paths are so messy omg
-[ ] fetch loading status
 
 IF TIME
 [ ] shorturl

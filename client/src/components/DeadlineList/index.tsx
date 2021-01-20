@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
 
-import { StyledDeadlineList } from './styles';
+import { StyledDeadlineList, StyledEmptyMessage } from './styles';
 import { Page } from '../_layout/Page';
 import { AddButton } from '../_ui/AddButton';
 import { Title } from '../_ui/Title';
 import { DeadlineCard } from '../DeadlineCard';
 import { FadeInSlideUp, FadeIn } from '../_utilities/animations';
+import { LoadingIndicator } from '../_ui/LoadingIndicator';
 
 interface Props {
     fetchDeadlineList: () => void;
@@ -35,23 +36,25 @@ const DeadlineList: React.FC<Props> = ({ fetchDeadlineList, deadlineList }) => {
         });
     }
 
+    if (deadlineList.pending) {
+        return <LoadingIndicator />;
+    }
+
     return (
         <Page>
-            <FadeIn animationDelay='.05s'>
-                <Title
-                    tag='h1'
-                    sticky={true}
-                    handleClick={() => {
-                        window.scroll({
-                            top: 0,
-                            left: 0,
-                            behavior: 'smooth',
-                        });
-                    }}
-                >
-                    deadlines
-                </Title>
-            </FadeIn>
+            <Title
+                tag='h1'
+                sticky={true}
+                handleClick={() => {
+                    window.scroll({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                }}
+            >
+                deadlines
+            </Title>
 
             {deadlines.length > 0 && (
                 <FadeIn animationDelay='.1s'>
@@ -59,7 +62,13 @@ const DeadlineList: React.FC<Props> = ({ fetchDeadlineList, deadlineList }) => {
                 </FadeIn>
             )}
 
-            {deadlines.length <= 0 && <h3>No deadlines to display.</h3>}
+            {deadlines.length <= 0 && (
+                <StyledEmptyMessage>
+                    <h3>
+                        No deadlines to display. Add a deadline to get started!
+                    </h3>
+                </StyledEmptyMessage>
+            )}
 
             <Link to='/deadlines/add'>
                 <AddButton />

@@ -11,6 +11,7 @@ interface Props {
 export const AddButton: React.FC<Props> = ({ handleClick }) => {
     return (
         <StyledAddButton
+            data-testid='add-button'
             onClick={(e) => {
                 if (handleClick) {
                     handleClick(e);

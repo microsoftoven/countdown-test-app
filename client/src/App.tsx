@@ -82,7 +82,11 @@ class App extends React.Component<Props, State> {
                 </ThemeProvider>
             );
         } else {
-            return <LoadingIndicator fullscreen={true} />;
+            return (
+                <div data-testid='app-loading'>
+                    <LoadingIndicator fullscreen={true} />
+                </div>
+            );
         }
     }
 }

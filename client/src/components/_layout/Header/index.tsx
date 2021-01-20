@@ -21,7 +21,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ user }) => {
     const renderContent = () => {
-        switch (user._id) {
+        switch (user?._id) {
             case null:
                 return (
                     <li>
@@ -48,7 +48,7 @@ export const Header: React.FC<Props> = ({ user }) => {
     };
 
     return (
-        <StyledHeader>
+        <StyledHeader data-testid='header'>
             <StyledNav>
                 <Link to='/' className='ctdn__logo'>
                     <StyledTitleContainer>
