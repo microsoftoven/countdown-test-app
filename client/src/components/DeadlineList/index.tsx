@@ -51,9 +51,11 @@ const DeadlineList: React.FC<Props> = ({ fetchDeadlineList, deadlineList }) => {
                 deadlines
             </Title>
 
-            {deadlineList && (
+            {deadlines.length > 0 && (
                 <StyledDeadlineList>{deadlines}</StyledDeadlineList>
             )}
+
+            {deadlines.length <= 0 && <h3>No deadlines to display.</h3>}
 
             <Link to='/deadlines/add'>
                 <AddButton />

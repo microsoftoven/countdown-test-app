@@ -17,37 +17,21 @@ TODO
 [ ] or do we do silent notifications with movement and a 'new' indicator..
 [ ] if time maybe do a little onboarding on 'get started'
 [ ] clean up unused packages
-[ ] if logged in should we redirect to most recent deadline when clicking 'home'?
-[ ] some sort of state for a reached deadline
 [ ] probably add notes on using a library for time calculation because of days/months/years 
 
 
 
 
-[X] modal
-[X] add deadline
-    [X] that name is already in use
-    [X] form validation
-    [X] use same modal, if it already exists adjust actions
-[ ] edit deadline
-[X] deadline list
-[X] single deadline
-[X] countdown complete
 [ ] react drag on deadline card
 [ ] react drag on modal
 [ ] alphabetize styles
 [ ] add unit tests
-[X] some sort of neat background animation on router change
 [ ] figure out alias! paths are so messy omg
-[X] transitions between views
-[X] avoid nesting in styled components unless necessary
-[X] loading indicator
 [ ] memos & callbacks
-[X] back to top on deadline list
-[X] close modal on state change for deadline success?
-[X] modal transition
 [ ] what do I do with past deadlines? maybe show a checkmark or something, or click a button to view past deadlines
 [ ] handle errors
+[ ] delete deadline & redirect from single view
+[ ] no deadline message on single/archive
 
 IF TIME
 [ ] shorturl

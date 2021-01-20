@@ -35,6 +35,10 @@ export const StyledDeadlineEditButton = styled.div`
         bottom: -50px;
     }
 
+    @media screen and (min-width: 768px) {
+        bottom: 28px;
+    }
+
     &,
     div {
         font-size: 10px;

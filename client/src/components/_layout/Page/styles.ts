@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { fadeInSlideUp } from '../../_utilities/keyframes';
 
 export const StyledPage = styled.div`
     flex-grow: 1;

@@ -76,6 +76,7 @@ export const StyledModal = styled.div`
 export const StyledModalButtonWrapper = styled.div`
     display: flex;
     align-items: center;
+    padding: 20px 0 0;
     justify-content: flex-end;
 
     button {
@@ -85,4 +86,8 @@ export const StyledModalButtonWrapper = styled.div`
             margin: 0;
         }
     }
+`;
+
+export const StyledModalButtonSpacer = styled.div`
+    flex-grow: 1;
 `;

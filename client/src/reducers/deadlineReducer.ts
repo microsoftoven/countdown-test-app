@@ -4,6 +4,7 @@ const initialState: DeadlineState = {
     pending: false,
     success: false,
     deadline: {},
+    redirectOnSave: null,
 };
 
 export const deadlineReducer = (state = initialState, action: ActionTypes) => {

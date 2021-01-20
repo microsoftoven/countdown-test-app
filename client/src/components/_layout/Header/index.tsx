@@ -14,7 +14,6 @@ import {
 
 import signinButton from '../../../assets/images/btn_google_signin.svg';
 import logo from '../../../assets/images/logo-countdown.svg';
-import { Button } from '../../_ui/Button';
 
 interface Props {
     user: IUser;

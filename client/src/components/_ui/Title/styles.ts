@@ -22,6 +22,7 @@ export const StyledTitle = styled.div`
         margin: 0 0 20px;
 
         @media screen and (min-width: 768px) {
+            padding: 20px 45px 0;
             font-size: 45px;
         }
     }

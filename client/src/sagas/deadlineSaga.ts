@@ -53,12 +53,31 @@ export function* addDeadline(action: any) {
         const result = yield call(addDeadlineAPI, action.payload);
 
         yield delay(500);
-        yield put({
-            type: actionTypes.ADD_DEADLINE_SUCCESS,
-            payload: result,
-        });
-        yield delay(1000);
-        yield put({ type: actionTypes.FETCH_DEADLINE_LIST });
+        if (action.payload.redirectOnSave !== null) {
+            const redirectURL = `/deadline/${result.deadline._id}`;
+
+            console.log(redirectURL);
+
+            yield put({
+                type: actionTypes.ADD_DEADLINE_SUCCESS,
+                payload: {
+                    redirectOnSave: redirectURL,
+                },
+            });
+        } else {
+            yield put({
+                type: actionTypes.ADD_DEADLINE_SUCCESS,
+                payload: {
+                    ...result,
+                    redirectOnSave: false,
+                },
+            });
+
+            yield delay(1000);
+
+            // TODO: send flag when on single vs archive
+            yield put({ type: actionTypes.FETCH_DEADLINE_LIST });
+        }
     } catch (error) {
         yield put({
             type: actionTypes.ADD_DEADLINE_ERROR,
@@ -90,14 +109,13 @@ export function* updateDeadline(action: any) {
     try {
         const result = yield call(updateDeadlineAPI, action.payload);
 
-        yield all([
-            put({
-                type: actionTypes.UPDATE_DEADLINE_SUCCESS,
-                message: result.message,
-                payload: result.data,
-            }),
-            put({ type: actionTypes.FETCH_DEADLINE_LIST }),
-        ]);
+        yield delay(500);
+        yield put({
+            type: actionTypes.UPDATE_DEADLINE_SUCCESS,
+            payload: result,
+        });
+        yield delay(1000);
+        yield put({ type: actionTypes.FETCH_DEADLINE_LIST });
     } catch (error) {
         yield put({
             type: actionTypes.UPDATE_DEADLINE_ERROR,

@@ -16,9 +16,7 @@ import DeadlineEditor from './components/DeadlineEditor';
 import DeadlineList from './components/DeadlineList';
 import Deadline from './components/Deadline';
 
-interface State {
-    // showModal: boolean;
-}
+interface State {}
 
 interface Props {
     fetchUser: Function;
