@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
@@ -15,15 +16,28 @@ interface Props extends IDeadline {}
 
 export const DeadlineCard: React.FC<Props> = ({
     _id,
-    timestamp,
+    timestamp = new Date().toString(),
     title,
     userID,
 }) => {
-    let date = dayjs(timestamp).format('MMMM D, YYYY h:mma');
+    // let date = dayjs(timestamp).format('MMMM D, YYYY h:mma');
+    let complete = new Date() > new Date(timestamp) ? true : false;
+
     return (
-        <StyledDeadlineCard>
+        <StyledDeadlineCard
+            className={classNames({
+                complete: complete,
+            })}
+        >
             <Link to={`/deadline/${_id}`}>
-                <StyledDeadlineDate>{date}</StyledDeadlineDate>
+                <StyledDeadlineDate
+                    className={classNames({
+                        complete: complete,
+                    })}
+                >
+                    {dayjs(timestamp).format('MMMM D, YYYY h:mma')}
+                    {complete && <span> (Complete)</span>}
+                </StyledDeadlineDate>
 
                 <StyledDeadlineTitle>{title}</StyledDeadlineTitle>
             </Link>

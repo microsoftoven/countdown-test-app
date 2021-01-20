@@ -10,8 +10,8 @@ module.exports = (app) => {
             const deadlines = await Deadline.find({
                 userID: req.user.id,
             })
-                .where('timestamp')
-                .gt(new Date().toISOString())
+                // .where('timestamp')
+                // .gt(new Date().toISOString())
                 .sort({ timestamp: 'ascending' });
 
             res.status(200).json({ deadlines });
