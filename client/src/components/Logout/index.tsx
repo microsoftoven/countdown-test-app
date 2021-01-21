@@ -6,15 +6,17 @@ interface Props {}
 
 export const Logout: React.FC<Props> = () => {
     return (
-        <Page>
-            <p>Byeee!</p>
+        <div data-testid='logout-page'>
+            <Page>
+                <p>Byeee!</p>
 
-            <br />
+                <br />
 
-            <VideoEmbed
-                title='Bacon Pancakes'
-                url='https://www.youtube.com/embed/0_EW8aNgKlA'
-            />
-        </Page>
+                <VideoEmbed
+                    title='Bacon Pancakes'
+                    url='https://www.youtube.com/embed/0_EW8aNgKlA'
+                />
+            </Page>
+        </div>
     );
 };

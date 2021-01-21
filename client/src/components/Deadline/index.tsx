@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import * as actions from '../../actions';
 
@@ -22,6 +22,7 @@ interface Props {
     fetchDeadline: (data: IDeadline) => void;
     match: any;
     activeDeadline: DeadlineState;
+    test?: boolean;
 }
 
 const Deadline: React.FC<Props> = (props) => {
@@ -41,7 +42,7 @@ const Deadline: React.FC<Props> = (props) => {
         fetchDeadline({ _id: match.params.id });
     }, [match, fetchDeadline]);
 
-    if (activeDeadline.deadline?.timestamp) {
+    if (activeDeadline.deadline !== {}) {
         return (
             <PageFlexColumn>
                 <FadeIn animationDelay='.075s'>
@@ -69,6 +70,7 @@ const Deadline: React.FC<Props> = (props) => {
                                 date={
                                     new Date(activeDeadline.deadline.timestamp)
                                 }
+                                data-testid='countdown'
                             />
                         </FadeInSlideUp>
 

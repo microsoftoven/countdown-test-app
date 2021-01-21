@@ -136,7 +136,7 @@ export const Countdown: React.FC<Props> = ({ date, noTimeout }) => {
         });
 
         return (
-            <StyledCountdownWrapper>
+            <StyledCountdownWrapper data-testid='countdown'>
                 <div style={{ display: 'inline-block' }}>
                     {displaySections.length > 0 && (
                         <StyledCountdown>{displaySections}</StyledCountdown>

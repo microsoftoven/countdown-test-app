@@ -24,7 +24,6 @@ interface Props {
     addDeadline: Function;
     user: UserState;
     theme: ThemeState;
-    history: any;
 }
 
 class App extends React.Component<Props, State> {

@@ -5,7 +5,7 @@ import { AppWrapper } from '../AppWrapper';
 
 test('app wrapper renders children', async () => {
     render(
-        <AppWrapper>
+        <AppWrapper data-testid='app-wrapper'>
             <p>Hello!</p>
         </AppWrapper>
     );

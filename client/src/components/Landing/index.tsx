@@ -12,27 +12,29 @@ export const Landing = () => {
     countdownDate.setMonth(countdownDate.getMonth() + 1);
 
     return (
-        <PageAlignCenter>
-            <FadeInSlideUp animationDelay='.05s'>
-                <DisplayTitle />
-            </FadeInSlideUp>
+        <div data-testid='landing-wrapper'>
+            <PageAlignCenter>
+                <FadeInSlideUp animationDelay='.05s'>
+                    <DisplayTitle />
+                </FadeInSlideUp>
 
-            <FadeInSlideUp animationDelay='.1s'>
-                <Tagline text='hit your deadlines.' />
-            </FadeInSlideUp>
+                <FadeInSlideUp animationDelay='.1s'>
+                    <Tagline text='hit your deadlines.' />
+                </FadeInSlideUp>
 
-            <FadeInSlideUp animationDelay='.15s'>
-                <Countdown date={countdownDate} />
-            </FadeInSlideUp>
+                <FadeInSlideUp animationDelay='.15s'>
+                    <Countdown date={countdownDate} />
+                </FadeInSlideUp>
 
-            <FadeInSlideUp animationDelay='.2s'>
-                <LandingDescription>
-                    <p>
-                        Countdown is a free web app that helps you manage your
-                        deadlines with a simple, intuitive interface.
-                    </p>
-                </LandingDescription>
-            </FadeInSlideUp>
-        </PageAlignCenter>
+                <FadeInSlideUp animationDelay='.2s'>
+                    <LandingDescription>
+                        <p>
+                            Countdown is a free web app that helps you manage
+                            your deadlines with a simple, intuitive interface.
+                        </p>
+                    </LandingDescription>
+                </FadeInSlideUp>
+            </PageAlignCenter>
+        </div>
     );
 };

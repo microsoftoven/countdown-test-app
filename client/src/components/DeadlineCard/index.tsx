@@ -25,12 +25,14 @@ export const DeadlineCard: React.FC<Props> = ({
 
     return (
         <StyledDeadlineCard
+            data-testid='deadline-card'
             className={classNames({
                 complete: complete,
             })}
         >
             <Link to={`/deadline/${_id}`}>
                 <StyledDeadlineDate
+                    data-testid='deadline-date'
                     className={classNames({
                         complete: complete,
                     })}

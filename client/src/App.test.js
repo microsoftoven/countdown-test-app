@@ -1,24 +1,35 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { rootReducer } from './reducers';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
 
 import App from './App';
 
-const sagaMiddleware = createSagaMiddleware();
+describe('App tests', () => {
+    const mockStore = configureStore([]);
 
-const store = createStore(rootReducer, {}, applyMiddleware(sagaMiddleware));
+    let store;
 
-sagaMiddleware.run(rootSaga);
+    beforeEach(() => {
+        store = mockStore({
+            theme: {
+                data: {
+                    data: {},
+                },
+                themeLoading: false,
+            },
+            user: {
+                _id: null,
+            },
+        });
+    });
 
-test('renders application', () => {
-    const { getByTestId } = render(
-        <Provider store={store}>
-            <App />
-        </Provider>
-    );
+    test('renders application', () => {
+        const { getByTestId } = render(
+            <Provider store={store}>
+                <App />
+            </Provider>
+        );
 
-    expect(getByTestId('app-loading')).toBeTruthy();
+        expect(getByTestId('header')).toBeTruthy();
+    });
 });
