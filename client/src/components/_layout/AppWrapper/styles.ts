@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import bgMobile from '../../../assets/images/bg-mobile.png';
-// import bgDesktop from '../../../assets/images/bg-desktop.png';
 import bgDesktopTop from '../../../assets/images/bg-desktop-top.png';
 import bgDesktopBottom from '../../../assets/images/bg-desktop-bottom.png';
 

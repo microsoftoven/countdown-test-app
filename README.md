@@ -43,10 +43,15 @@ Note: The app uses a small Node + Express backend to handle authentication and A
 
 5. If you do not wish to use a personal or work Gmail login, I've supplied a throwaway Gmail account that is set up with a few existing deadlines. Please see the related email for the username and password.
 
+6. Available tests may be run in the projects /client/ directory:
+    ```bash
+    yarn test
+    ```
+
 ## Notes on the Countdown component
 I've chosen to use an external library to handle date formatting and diffing dates. If we were only doing days, hours, minutes, and seconds, that would be pretty easy! However, anything further than that is a WHOLE lot of logic that we can simply use a small library for, like leap years.. different days in months.. etc. DayJS to the rescue!
 
-If you'd like to test this out for whatever reason, simply comment out lines 53-57 in koala-countdown/client/src/components/Countdown/index.tsx and uncomment out lines 59-74.
+If you'd like to test this out for whatever reason, simply comment out lines 53-57 in koala-countdown/client/src/components/countdown/index.tsx and uncomment out lines 59-74.
 
 -------
 
