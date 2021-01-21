@@ -13,7 +13,7 @@ import {
 import { PageFlexColumn } from '../_layout/Page';
 import { Title } from '../_ui/Title';
 import { LoadingIndicator } from '../_ui/LoadingIndicator';
-import { Countdown } from '../Countdown';
+import { Countdown } from '../countdown';
 import { AddButton } from '../_ui/AddButton';
 import { FadeInSlideUp, FadeIn } from '../_utilities/animations';
 import { EditButton } from '../_ui/EditButton';
@@ -68,7 +68,9 @@ const Deadline: React.FC<Props> = (props) => {
                         <FadeInSlideUp animationDelay='.15s'>
                             <Countdown
                                 date={
-                                    new Date(activeDeadline.deadline.timestamp)
+                                    new Date(
+                                        activeDeadline.deadline.timestamp || ''
+                                    )
                                 }
                                 data-testid='countdown'
                             />

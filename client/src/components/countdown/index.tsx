@@ -113,7 +113,7 @@ export const Countdown: React.FC<Props> = ({ date, noTimeout }) => {
                 >
                     <StyledNumber
                         className={key}
-                        data-number={remainingTime[key]}
+                        data-number={`${remainingTime[key]}`}
                     >
                         {key === 'seconds' && count < 10 && 0}
                         {remainingTime[key]}
