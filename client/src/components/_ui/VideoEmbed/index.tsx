@@ -8,8 +8,9 @@ interface Props {
 
 export const VideoEmbed: React.FC<Props> = ({ url, title }) => {
     return (
-        <StyledEmbedContainer>
+        <StyledEmbedContainer data-testid='video-embed'>
             <iframe
+                data-testid='video-embed-iframe'
                 src={url}
                 frameBorder='0'
                 allowFullScreen

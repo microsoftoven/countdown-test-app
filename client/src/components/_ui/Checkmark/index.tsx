@@ -10,8 +10,8 @@ interface Props {}
 export const Checkmark: React.FC<Props> = () => {
     return (
         <FadeInSlideUp animationDelay='.15s'>
-            <StyledCheckmark>
-                <ReactSVG src={checkmark} />
+            <StyledCheckmark data-testid='checkmark'>
+                <ReactSVG data-testid='svg' src={checkmark} />
             </StyledCheckmark>
         </FadeInSlideUp>
     );

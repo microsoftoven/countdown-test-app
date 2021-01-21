@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import { AddButton } from './index';
 
-test('page wrapper renders children', async () => {
+test('click is triggered on add button', async () => {
     const handleClick = jest.fn();
 
     render(<AddButton handleClick={handleClick} />);

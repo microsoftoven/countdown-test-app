@@ -12,6 +12,7 @@ export const CloseButton: React.FC<Props> = ({ handleClick }) => {
                 handleClick();
             }}
             className='close-btn'
+            data-testid='close-btn'
         >
             <StyledCloseSVG
                 width='30'

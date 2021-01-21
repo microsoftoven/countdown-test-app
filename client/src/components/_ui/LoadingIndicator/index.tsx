@@ -14,8 +14,9 @@ export const LoadingIndicator: React.FC<Props> = ({ fullscreen }) => {
             className={classNames({
                 fullscreen: fullscreen,
             })}
+            data-testid='loading-indicator'
         >
-            <ReactSVG src={loadingImg} />
+            <ReactSVG data-testid='loading-svg' src={loadingImg} />
         </StyledLoadingIndicator>
     );
 };

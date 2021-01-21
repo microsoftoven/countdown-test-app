@@ -7,6 +7,10 @@ interface Props {}
 export const Logout: React.FC<Props> = () => {
     return (
         <Page>
+            <p>Byeee!</p>
+
+            <br />
+
             <VideoEmbed
                 title='Bacon Pancakes'
                 url='https://www.youtube.com/embed/0_EW8aNgKlA'

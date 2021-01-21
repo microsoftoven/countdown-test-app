@@ -37,9 +37,10 @@ export const Button: React.FC<Props> = ({
 
     return (
         <StyledButton
+            data-testid='button'
             className={classNames(className, buttonStyle, {
                 pending: pending,
-                success: pending,
+                success: success,
             })}
             onClick={(e) => {
                 if (!disabled && handleClick) {

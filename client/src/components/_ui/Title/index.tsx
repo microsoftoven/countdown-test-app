@@ -22,6 +22,7 @@ export const Title: React.FC<Props> = ({
         return (
             <StickyTitle>
                 <StyledTitle
+                    data-testid='title'
                     className={classNames(className, {
                         clickable: handleClick ? true : false,
                     })}

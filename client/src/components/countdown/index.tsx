@@ -22,6 +22,7 @@ dayjs.extend(duration);
 // Write your countdown code in this component
 interface Props {
     date: Date;
+    noTimeout?: boolean; // for testing
 }
 
 interface RemainingTime {
@@ -34,7 +35,7 @@ interface RemainingTime {
     seconds?: number;
 }
 
-export const Countdown: React.FC<Props> = ({ date }) => {
+export const Countdown: React.FC<Props> = ({ date, noTimeout }) => {
     const [remainingTime, setRemainingTime] = useState<RemainingTime>({});
     const [countdownComplete, setCountdownComplete] = useState<boolean>(false);
 
@@ -58,7 +59,7 @@ export const Countdown: React.FC<Props> = ({ date }) => {
 
     useEffect(() => {
         let time = 0;
-        if (!countdownComplete) {
+        if (!countdownComplete && !noTimeout) {
             const timer = setTimeout(() => {
                 calculateRemainingTime(date);
 
@@ -68,6 +69,12 @@ export const Countdown: React.FC<Props> = ({ date }) => {
             return () => clearTimeout(timer);
         }
     });
+
+    useEffect(() => {
+        if (noTimeout) {
+            calculateRemainingTime(date);
+        }
+    }, []);
 
     const setupTimeDisplay = () => {
         let result: Array<Object> = [];
@@ -87,7 +94,10 @@ export const Countdown: React.FC<Props> = ({ date }) => {
                     key={`countdown-${key}`}
                     className={classes}
                 >
-                    <StyledNumber>
+                    <StyledNumber
+                        className={key}
+                        data-number={remainingTime[key]}
+                    >
                         {key === 'seconds' && count < 10 && 0}
                         {remainingTime[key]}
                     </StyledNumber>
@@ -102,7 +112,7 @@ export const Countdown: React.FC<Props> = ({ date }) => {
 
     if (countdownComplete) {
         return (
-            <StyledCountdownWrapper>
+            <StyledCountdownWrapper data-testid='countdown-complete'>
                 <StyledCountdownComplete>
                     <Checkmark />
                 </StyledCountdownComplete>

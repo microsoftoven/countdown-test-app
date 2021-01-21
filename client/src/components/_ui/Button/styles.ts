@@ -86,6 +86,10 @@ export const StyledButton = styled.button`
             background-color: #ffffff;
             color: red;
         }
+
+        &.pending {
+            background-color: red !important;
+        }
     }
 
     &.pending {

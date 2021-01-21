@@ -1,19 +1,25 @@
 import React from 'react';
-import { Redirect, RouteProps } from 'react-router-dom';
+import {
+    Redirect,
+    Route,
+    RouteComponentProps,
+    withRouter,
+} from 'react-router-dom';
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
     user: IUser;
-    redirectTo: string;
+    path: string;
+    component: any;
 }
 
-export const PrivateRoutes: React.FC<Props> = ({
-    children,
-    redirectTo,
-    user,
-}) => {
-    if (user._id === null) {
-        return <Redirect to={redirectTo} />;
+const PrivateRoute: React.FC<Props> = (props: Props) => {
+    const { user } = props;
+
+    if (user._id === null && props.path === props.history.location.pathname) {
+        return <Redirect to='/' />;
     } else {
-        return <>{children}</>;
+        return <Route {...props} />;
     }
 };
+
+export default withRouter(PrivateRoute);

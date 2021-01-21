@@ -18,6 +18,8 @@ export const EditButton: React.FC<Props> = ({ handleClick, link }) => {
                     handleClick();
                 }
             }}
+            data-testid='edit-button'
+            className='btn'
         >
             <Link to={link}>
                 <ReactSVG src={editButton} />

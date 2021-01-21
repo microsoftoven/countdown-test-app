@@ -55,6 +55,7 @@ export const Modal: React.FC<Props> = ({ children, onClose, isVisible }) => {
             className={classNames({
                 visible: modalVisible,
             })}
+            data-testid='modal'
         >
             <div>
                 <CloseButton handleClick={handleClose} />

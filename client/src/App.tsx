@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import 'normalize.css';
 
 import { AppWrapper } from './components/_layout/AppWrapper';
-import { PrivateRoutes } from './components/PrivateRoutes';
+import PrivateRoute from './components/PrivateRoutes';
 import { Header } from './components/_layout/Header';
 import { Footer } from './components/_layout/Footer';
 import { Landing } from './components/Landing';
@@ -24,6 +24,7 @@ interface Props {
     addDeadline: Function;
     user: UserState;
     theme: ThemeState;
+    history: any;
 }
 
 class App extends React.Component<Props, State> {
@@ -43,39 +44,39 @@ class App extends React.Component<Props, State> {
                             <Header user={this.props.user} />
 
                             <Route exact path='/' component={Landing} />
+
                             <Route path='/logged-out' component={Logout} />
 
-                            <PrivateRoutes
-                                redirectTo='/'
+                            <PrivateRoute
+                                path='/deadlines'
+                                component={DeadlineList}
                                 user={this.props.user}
-                            >
-                                <Route
-                                    path='/deadlines'
-                                    component={DeadlineList}
-                                />
+                            />
 
-                                <Route
-                                    path='/deadlines/add'
-                                    component={DeadlineEditor}
-                                />
+                            <PrivateRoute
+                                path='/deadlines/add'
+                                component={DeadlineEditor}
+                                user={this.props.user}
+                            />
 
-                                <Route
-                                    path='/deadlines/:id/:action'
-                                    component={DeadlineEditor}
-                                />
+                            <PrivateRoute
+                                path='/deadlines/:id/:action'
+                                component={DeadlineEditor}
+                                user={this.props.user}
+                            />
 
-                                <Route
-                                    path='/deadline/:id/:action'
-                                    component={DeadlineEditor}
-                                />
+                            <PrivateRoute
+                                path='/deadline/:id/:action'
+                                component={DeadlineEditor}
+                                user={this.props.user}
+                            />
 
-                                <Route
-                                    path='/deadline/:id'
-                                    component={Deadline}
-                                    user={this.props.user}
-                                    redirectTo='/'
-                                />
-                            </PrivateRoutes>
+                            <PrivateRoute
+                                path='/deadline/:id'
+                                component={Deadline}
+                                user={this.props.user}
+                            />
+                            {/* </PrivateRoutes> */}
                             <Footer />
                         </BrowserRouter>
                     </AppWrapper>
