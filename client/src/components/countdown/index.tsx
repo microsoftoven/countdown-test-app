@@ -55,6 +55,23 @@ export const Countdown: React.FC<Props> = ({ date, noTimeout }) => {
         );
 
         setRemainingTime(countdownDuration.$d);
+
+        // let delta = difference;
+
+        // let days = Math.floor(delta / 86400);
+        // delta -= days * 86400;
+        // let hours = Math.floor(delta / 3600);
+        // delta -= hours * 3600;
+        // let minutes = Math.floor(delta / 60);
+        // delta -= minutes * 60;
+        // let seconds = delta;
+
+        // setRemainingTime({
+        //     days: days,
+        //     hours: hours,
+        //     minutes: minutes,
+        //     seconds: seconds,
+        // });
     };
 
     useEffect(() => {
