@@ -48,6 +48,8 @@ Note: The app uses a small Node + Express backend to handle authentication and A
     yarn test
     ```
 
+7. Don't forget to log out when you're done! I'm serious. Log out. It's a lot of fun.
+
 ## Notes on the Countdown component
 I've chosen to use an external library to handle date formatting and diffing dates. If we were only doing days, hours, minutes, and seconds, that would be pretty easy! However, anything further than that is a WHOLE lot of logic that we can simply use a small library for, like leap years.. different days in months.. etc. DayJS to the rescue!
 
