@@ -29,7 +29,7 @@ Note: The app uses a small Node + Express backend to handle authentication and A
     yarn install
     ```
 
-4. Copy the local key file (dev.js) into koala-countdown/config/. This file must be named *dev.js*. This file was intentionally left out of the repository as we should never, *ever* keep keys in a repo, public or private.
+4. Copy the local key file (dev.txt) into koala-countdown/config/. This file must be renamed *dev.js* instead of *dev.txt*. This file was intentionally left out of the repository as we should never, *ever* keep keys in a repo, public or private.
 
 5. Start the development server in the project's root directory:
     ```bash
