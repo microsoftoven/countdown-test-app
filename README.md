@@ -1,5 +1,6 @@
 # countdown-app
 
+
 ## Summary
 Countdown is a small webapp created for the web engineer project! It specifically aims to fulfill the requirements of taking a number or set of numbers to set/reset a countdown timer, code refactoring, and a select number of additional features that would make sense for an app such as this. 
 
